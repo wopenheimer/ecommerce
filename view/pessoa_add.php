@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Paciente</h4>
             </div>
             <div class="modal-body">
-			    <form action="<?= BASE_URL ?>paciente/add" method="POST">
+			    <form action="<?= BASE_URL ?>pessoa/add" method="POST">
 			        <div class="form-group">
 			            <label for="cpf">Cpf</label>
 			            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Cpf" required>
@@ -29,13 +29,13 @@
 			        </div>
 
 			        <div class="form-group">
-			            <label for="altura">Peso</label>
-			            <input type="number" step="0.01" class="form-control" id="peso" name="peso" placeholder="Peso" required>
+			            <label for="celular">Celular</label>
+			            <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" required>
 			        </div>
 
 			        <div class="form-group">
-			            <label for="altura">Altura</label>
-			            <input type="number" step="0.01" class="form-control" id="altura" name="altura" placeholder="Altura" required>
+			            <label for="cep">Cep</label>
+			            <input type="text" class="form-control" id="cep" name="cep" placeholder="Cep" required>
 			        </div>
 
 			        <button type="submit" class="btn btn-primary">Enviar</button>

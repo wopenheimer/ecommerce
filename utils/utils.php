@@ -63,9 +63,9 @@ function create_session_user($usuario) {
             !isset($_SESSION["usercpf"])) {
 
         $_SESSION["userid"] = $usuario->getId();
-        $_SESSION["username"] = $usuario->getPaciente()->getNome();
+        $_SESSION["username"] = $usuario->getPessoa()->getNome();
         $_SESSION["useremail"] = $usuario->getEmail();
-        $_SESSION["usercpf"] = $usuario->getPaciente()->getCpf();
+        $_SESSION["usercpf"] = $usuario->getPessoa()->getCpf();
 
     } 
 }

@@ -1,4 +1,4 @@
- <form action="<?= BASE_URL ?>paciente/edit" method="POST">
+ <form action="<?= BASE_URL ?>pessoa/edit" method="POST">
     <div class="form-group">
         <label for="cpf">Cpf</label>
         <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Cpf" value="<?=$args->getCpf()?>" required>
@@ -23,13 +23,13 @@
     </div>
 
     <div class="form-group">
-        <label for="altura">Peso</label>
-        <input type="number" step="0.01" class="form-control" id="peso" name="peso" placeholder="Peso" value="<?=$args->getPeso()?>" required>
+        <label for="celular">Celular</label>
+        <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="<?=$args->getCelular()?>" required>
     </div>
 
     <div class="form-group">
-        <label for="altura">Altura</label>
-        <input type="number" step="0.01" class="form-control" id="altura" name="altura" placeholder="Altura" value="<?=$args->getAltura()?>" required>
+        <label for="cep">Cep</label>
+        <input type="text" class="form-control" id="cep" name="cep" placeholder="Cep" value="<?=$args->getCep()?>" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Enviar</button>

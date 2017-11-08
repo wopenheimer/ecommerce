@@ -15,21 +15,21 @@
     </div>
 
     <div class="form-group">
-        <label for="paciente">Paciente</label>
-        <select id="paciente" name="paciente" class="form-control selectpicker" data-live-search="true" required>
+        <label for="pessoa">Pessoa</label>
+        <select id="pessoa" name="pessoa" class="form-control selectpicker" data-live-search="true" required>
           <?php        
-          foreach ($args['pacientes'] as $paciente) {
+          foreach ($args['pessoas'] as $pessoa) {
             ?>
             <option 
-                value="<?= $paciente->getCpf() ?>" 
-                data-tokens="<?= $paciente->getNome()?>"
+                value="<?= $pessoa->getCpf() ?>" 
+                data-tokens="<?= $pessoa->getNome()?>"
                 <?php 
-                   if ($args['usuario']->getPaciente()->getCpf() == $paciente->getCpf()) { 
+                   if ($args['usuario']->getPessoa()->getCpf() == $pessoa->getCpf()) { 
                         print ' selected ';
                     }    
                      ?>
                 >
-                    <?= $paciente->getNome() ?>                        
+                    <?= $pessoa->getNome() ?>                        
             </option>
             <?php
           }

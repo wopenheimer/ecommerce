@@ -1,0 +1,20 @@
+RewriteEngine on
+
+#RewriteBase /
+
+RewriteCond ${REQUEST_URI} ^.+$
+
+## If the request is for a valid directory
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+## If the request is for a valid file
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+## If the request is for a valid link
+RewriteCond %{REQUEST_FILENAME} -l
+## don't do anything
+RewriteRule ^ - [L]
+
+
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ ?module=$1&page=$2&id=$3 [L,QSA]
+
+RewriteRule ^([^/]+)/([^/]+)/?$ ?module=$1&page=$2 [L,QSA]
+

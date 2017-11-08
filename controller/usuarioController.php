@@ -1,7 +1,7 @@
 <?php
 
 include_once("model/usuario.php");
-include_once("model/paciente.php");
+include_once("model/pessoa.php");
 include_once("utils/utils.php");
 
 switch ($_REQUEST["page"]) {
@@ -33,16 +33,16 @@ function home() {
 
 function add(){
 	if (!$_POST) {
-	   	$paciente = new Paciente();
-	    $pacientes = $paciente->getPacientes();
+	   	$pessoa = new Pessoa();
+	    $pessoas = $pessoa->getPessoas();
 
 		$template = "usuario_" . "add";
-		render($pacientes, $template);
+		render($pessoas, $template);
 	} else {	
 		$usuario = new Usuario();
 		$usuario->setEmail(validInputData($_POST["email"]));
 		$usuario->setSenha(md5($_POST["senha"]));
-		$usuario->setPaciente(validInputData($_POST["paciente"]));
+		$usuario->setPessoa(validInputData($_POST["pessoa"]));
 
 		$result = $usuario->add();
 		$template = "show_message";
@@ -63,9 +63,9 @@ function edit(){
 		$usuario_obj = $usuario->getUsuarioById(validInputData($_GET["id"]));
 		$args['usuario'] = $usuario_obj;
 
-	   	$paciente = new Paciente();
-	    $pacientes = $paciente->getPacientes();
-	    $args['pacientes'] = $pacientes;
+	   	$pessoa = new Pessoa();
+	    $pessoas = $pessoa->getPessoas();
+	    $args['pessoas'] = $pessoas;
 
 		$template = "usuario_" . "edit";
 		render($args, $template);
@@ -74,7 +74,7 @@ function edit(){
 		$usuario->setId(validInputData($_POST["id"]));
 		$usuario->setEmail(validInputData($_POST["email"]));
 		$usuario->setSenha(md5($_POST["senha"]));
-		$usuario->setPaciente(validInputData($_POST["paciente"]));
+		$usuario->setPessoa(validInputData($_POST["pessoa"]));
 
 		$result = $usuario->edit();
 		$template = "show_message";

@@ -11,11 +11,11 @@
     </div>
 
     <div class="form-group">
-        <label for="paciente">Paciente</label>
-        <select id="paciente" name="paciente" class="form-control selectpicker" data-live-search="true" required>
+        <label for="pessoa">Pessoa</label>
+        <select id="pessoa" name="pessoa" class="form-control selectpicker" data-live-search="true" required>
           <?php        
-          foreach ($args as $paciente) {
-          	print '<option value="' . $paciente->getCpf() . '" data-tokens="' . $paciente->getNome() . '">' . $paciente->getNome() . '</option>';
+          foreach ($args as $pessoa) {
+          	print '<option value="' . $pessoa->getCpf() . '" data-tokens="' . $pessoa->getNome() . '">' . $pessoa->getNome() . '</option>';
           }
           ?>		
 		</select>

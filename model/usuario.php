@@ -1,13 +1,13 @@
 <?php
 include_once("dao/usuario_dao.php");
-include_once("paciente.php");
+include_once("pessoa.php");
 
 class Usuario
 {
 	private $id;
 	private $email;
 	private $senha;
-	private $usuario;
+	private $pessoa;
         
     private $usuario_dao;
     
@@ -39,12 +39,12 @@ class Usuario
 		return $this->senha;
 	}
 
-	public function setPaciente($paciente){
-		$this->paciente = $paciente;
+	public function setPessoa($pessoa){
+		$this->pessoa = $pessoa;
 	}
 
-	public function getPaciente(){
-		return $this->paciente;
+	public function getPessoa(){
+		return $this->pessoa;
 	}
 
         
@@ -60,14 +60,14 @@ class Usuario
 	            $usuario->setEmail($v_usuario["email"]);
 	            $usuario->setSenha($v_usuario["senha"]);
 
-	            $paciente = new Paciente();
-	            $paciente->setCpf($v_usuario["cpf"]);
-	            $paciente->setNome($v_usuario["nome"]);
-	            $paciente->setDatanasc($v_usuario["datanasc"]);
-	            $paciente->setPeso($v_usuario["peso"]);
-	            $paciente->setAltura($v_usuario["altura"]);
+	            $pessoa = new Pessoa();
+	            $pessoa->setCpf($v_usuario["cpf"]);
+	            $pessoa->setNome($v_usuario["nome"]);
+	            $pessoa->setDatanasc($v_usuario["datanasc"]);
+	            $pessoa->setCelular($v_usuario["celular"]);
+	            $pessoa->setCep($v_usuario["cep"]);
 
-	            $usuario->setPaciente($paciente);
+	            $usuario->setPessoa($pessoa);
 	            $array_usuarios[] = $usuario;
 	        }
     	}
@@ -83,14 +83,14 @@ class Usuario
         $usuario->setEmail($v_usuario->email);
         $usuario->setSenha($v_usuario->senha);
 
-        $paciente = new Paciente();
-        $paciente->setCpf($v_usuario->cpf);
-        $paciente->setNome($v_usuario->nome);
-        $paciente->setDatanasc($v_usuario->datanasc);
-        $paciente->setPeso($v_usuario->peso);
-        $paciente->setAltura($v_usuario->altura);
+        $pessoa = new Pessoa();
+        $pessoa->setCpf($v_usuario->cpf);
+        $pessoa->setNome($v_usuario->nome);
+        $pessoa->setDatanasc($v_usuario->datanasc);
+        $pessoa->setCelular($v_usuario->celular);
+        $pessoa->setCep($v_usuario->cep);
 
-        $usuario->setPaciente($paciente);
+        $usuario->setPessoa($pessoa);
 
         return $usuario;
 	}		
@@ -123,14 +123,14 @@ class Usuario
 	        $usuario->setEmail($v_usuario->email);
 	        $usuario->setSenha($v_usuario->senha);
 
-	        $paciente = new Paciente();
-	        $paciente->setCpf($v_usuario->cpf);
-	        $paciente->setNome($v_usuario->nome);
-	        $paciente->setDatanasc($v_usuario->datanasc);
-	        $paciente->setPeso($v_usuario->peso);
-	        $paciente->setAltura($v_usuario->altura);
+	        $pessoa = new Pessoa();
+	        $pessoa->setCpf($v_usuario->cpf);
+	        $pessoa->setNome($v_usuario->nome);
+	        $pessoa->setDatanasc($v_usuario->datanasc);
+	        $pessoa->setCelular($v_usuario->celular);
+	        $pessoa->setCep($v_usuario->cep);
 
-	        $usuario->setPaciente($paciente);			
+	        $usuario->setPessoa($pessoa);
 		} 
 
         return $usuario;
