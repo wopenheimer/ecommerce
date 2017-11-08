@@ -24,7 +24,7 @@
 
     <div class="form-group">
         <label for="celular">Celular</label>
-        <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="<?=$args->getCelular()?>" required>
+        <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="<?=$args->getCelular()?>" >
     </div>
 
     <div class="form-group">
