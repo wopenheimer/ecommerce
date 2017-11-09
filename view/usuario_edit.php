@@ -37,6 +37,31 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <label for="perfil">Perfil</label>
+        <select id="perfil" name="perfil" class="form-control selectpicker" data-live-search="true" required>
+          <?php        
+          foreach ($args['perfis'] as $perfil) {
+            ?>
+            <option 
+                value="<?= $perfil->getId() ?>" 
+                data-tokens="<?= $perfil->getDescricao()?>"
+                <?php 
+                   if ($args['usuario']->getPerfil()->getId() == $perfil->getId()) { 
+                        print ' selected ';
+                    }    
+                     ?>
+                >
+                    <?= $perfil->getDescricao() ?>                        
+            </option>
+            <?php
+          }
+          ?>        
+    </select>
+
+    </div>
+
+
     <button type="submit" class="btn btn-primary">Enviar</button>
 
 </form> 

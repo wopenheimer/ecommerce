@@ -15,7 +15,7 @@ class AnuncioDao extends Dao {
     
 
     public function getAnuncioById($id) {
-        $sql = "select * from anuncio A
+        $sql = "select *, A.preco::numeric from anuncio A
                 left join pessoa P on P.cpf = A.anunciante_cpf
                 where A.id = $1;";
         $param = array();
@@ -27,7 +27,7 @@ class AnuncioDao extends Dao {
 
     public function add($anuncio) {
         $sql = 'insert into anuncio (titulo, descricao, preco, datacriacao, ultimaalteracao, anunciante_cpf) ';
-        $sql .= 'values ($1, $2, $3, now(), now(), $4);';
+        $sql .= 'values ($1, $2, $3::numeric, now(), now(), $4);';
         $param = array();
         array_push($param, $anuncio->getTitulo(), $anuncio->getDescricao(), $anuncio->getPreco(), $anuncio->getAnunciante());
 
@@ -37,10 +37,10 @@ class AnuncioDao extends Dao {
 
 
     public function edit($anuncio) {
-        $sql = 'update anuncio set titulo = $1, descricao = $2, preco = $3, ultimaalteracao = now(), anunciante_cpf = $4 ';
+        $sql = 'update anuncio set titulo = $1, descricao = $2, preco = $3::numeric, ultimaalteracao = now(), anunciante_cpf = $4 ';
         $sql .= 'where id = $5;';
         $param = array();
-        array_push($param, $anuncio->getTitulo(), $anuncio->getDescricao(), $anuncio->getPreco(), $anuncio->getId());
+        array_push($param, $anuncio->getTitulo(), $anuncio->getDescricao(), $anuncio->getPreco(), $anuncio->getAnunciante(), $anuncio->getId());
 
         $result = $this->executaQuery($sql, $param);
         return $result;        

@@ -1,6 +1,7 @@
 <?php
 include_once("dao/usuario_dao.php");
 include_once("pessoa.php");
+include_once("perfil.php");
 
 class Usuario
 {
@@ -8,6 +9,7 @@ class Usuario
 	private $email;
 	private $senha;
 	private $pessoa;
+	private $perfil;
         
     private $usuario_dao;
     
@@ -47,6 +49,14 @@ class Usuario
 		return $this->pessoa;
 	}
 
+	public function setPerfil($perfil){
+		$this->perfil = $perfil;
+	}
+
+	public function getPerfil(){
+		return $this->perfil;
+	}
+
         
 	public function getUsuarios() {            
             
@@ -56,7 +66,7 @@ class Usuario
         if ($usuarios){
 	        foreach ($usuarios as $v_usuario) {
 	            $usuario = new Usuario();
-	            $usuario->setId($v_usuario["id"]);
+	            $usuario->setId($v_usuario["usuario_id"]);
 	            $usuario->setEmail($v_usuario["email"]);
 	            $usuario->setSenha($v_usuario["senha"]);
 
@@ -68,6 +78,13 @@ class Usuario
 	            $pessoa->setCep($v_usuario["cep"]);
 
 	            $usuario->setPessoa($pessoa);
+
+	            $perfil = new Perfil();
+	            $perfil->setId($v_usuario["perfil_id"]);
+	            $perfil->setDescricao($v_usuario["descricao"]);
+
+	            $usuario->setPerfil($perfil);
+
 	            $array_usuarios[] = $usuario;
 	        }
     	}
@@ -79,7 +96,7 @@ class Usuario
         $v_usuario = $this->usuario_dao->getUsuarioById($id);
         
         $usuario = new Usuario();
-        $usuario->setId($v_usuario->id);
+        $usuario->setId($v_usuario->usuario_id);
         $usuario->setEmail($v_usuario->email);
         $usuario->setSenha($v_usuario->senha);
 
@@ -91,6 +108,13 @@ class Usuario
         $pessoa->setCep($v_usuario->cep);
 
         $usuario->setPessoa($pessoa);
+
+        $perfil = new Perfil();
+        $perfil->setId($v_usuario->perfil_id);
+        $perfil->setDescricao($v_usuario->descricao);
+
+        $usuario->setPerfil($perfil);
+
 
         return $usuario;
 	}		
@@ -119,7 +143,7 @@ class Usuario
         $usuario = null;
 		if ($v_usuario) {
 	        $usuario = new Usuario();
-	        $usuario->setId($v_usuario->id);
+	        $usuario->setId($v_usuario->usuario_id);
 	        $usuario->setEmail($v_usuario->email);
 	        $usuario->setSenha($v_usuario->senha);
 
@@ -131,6 +155,12 @@ class Usuario
 	        $pessoa->setCep($v_usuario->cep);
 
 	        $usuario->setPessoa($pessoa);
+
+	        $perfil = new Perfil();
+	        $perfil->setId($v_usuario->perfil_id);
+	        $perfil->setDescricao($v_usuario->descricao);
+
+	        $usuario->setPerfil($perfil);	        
 		} 
 
         return $usuario;

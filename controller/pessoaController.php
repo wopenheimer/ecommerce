@@ -3,22 +3,28 @@
 include_once("model/pessoa.php");
 include_once("utils/utils.php");
 
-switch ($_REQUEST["page"]) {
-    case 'home':
-	   home();
-       break;
-	case 'add':
-		add();
-		break;	
-	case 'edit':
-		edit();
-		break;	
-	case 'remove':
-		remove();
-		break;	
-	default:
-		# code...
-		break;
+if (is_adm_user()) {
+	switch ($_REQUEST["page"]) {
+	    case 'home':
+		   home();
+	       break;
+		case 'add':
+			add();
+			break;	
+		case 'edit':
+			edit();
+			break;	
+		case 'remove':
+			remove();
+			break;	
+		default:
+			# code...
+			break;
+	}
+} else {
+	$template = "show_message";
+	$args['message'] = "Permissão negada.";	
+	render($args, $template);	
 }
 
 

@@ -10,6 +10,7 @@ print '
 		<th>ID</th>
 		<th>Email</th>
 		<th>Pessoa</th>
+		<th>Perfil</th>
 		<th>Opções</th>
 	</tr>';
 	for($i = 0; $i < sizeof($usuarios); $i++){
@@ -18,6 +19,7 @@ print '
 			<td>' .$usuario->getId(). '</td>
 			<td>' .$usuario->getEmail() .'</td>
 			<td><a href="' . BASE_URL. 'pessoa/edit/' .$usuario->getPessoa()->getCpf() .'">' .$usuario->getPessoa()->getNome() .'</a></td>
+			<td>' .$usuario->getPerfil()->getDescricao() .'</td>
 			<td>
 			<a href="' . BASE_URL. 'usuario/edit/' .$usuario->getId() .'" class="btn btn-default" role="button">
 				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

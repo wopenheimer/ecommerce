@@ -67,12 +67,13 @@ function edit(){
 
 	   	$pessoa = new Pessoa();
 	    $pessoas = $pessoa->getPessoas();
-	    $args['anunciantes'] = $pessoas;
+	    $args['pessoas'] = $pessoas;
 
 		$template = "anuncio_" . "edit";
 		render($args, $template);
 	} else {
 		$anuncio = new Anuncio();
+		$anuncio->setId(validInputData($_POST["id"]));
         $anuncio->setTitulo(validInputData($_POST["titulo"]));
         $anuncio->setDescricao(validInputData($_POST["descricao"]));
         $anuncio->setPreco(validInputData($_POST["preco"]));

@@ -8,6 +8,8 @@ define("PAGE_LOGIN", "login");
 define("MODULE_HOME", "anuncio");
 define("PAGE_HOME", "home");
 
+define("ADM_PERFIL", "1");
+
 
 
 define("DB_HOST", "127.0.0.1");

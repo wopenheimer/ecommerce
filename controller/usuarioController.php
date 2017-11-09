@@ -2,24 +2,31 @@
 
 include_once("model/usuario.php");
 include_once("model/pessoa.php");
+include_once("model/perfil.php");
 include_once("utils/utils.php");
 
-switch ($_REQUEST["page"]) {
-    case 'home':
-	   home();
-       break;
-	case 'add':
-		add();
-		break;	
-	case 'edit':
-		edit();
-		break;	
-	case 'remove':
-		remove();
-		break;	
-	default:
-		# code...
-		break;
+if (is_adm_user()) {
+	switch ($_REQUEST["page"]) {
+	    case 'home':
+		   home();
+	       break;
+		case 'add':
+			add();
+			break;	
+		case 'edit':
+			edit();
+			break;	
+		case 'remove':
+			remove();
+			break;	
+		default:
+			# code...
+			break;
+	}
+} else {
+	$template = "show_message";
+	$args['message'] = "Permissão negada.";	
+	render($args, $template);	
 }
 
 
@@ -35,14 +42,20 @@ function add(){
 	if (!$_POST) {
 	   	$pessoa = new Pessoa();
 	    $pessoas = $pessoa->getPessoas();
+	    $args['pessoas'] = $pessoas;
+
+	   	$perfil = new Perfil();
+	    $perfis = $perfil->getPerfis();
+	    $args['perfis'] = $perfis;	    
 
 		$template = "usuario_" . "add";
-		render($pessoas, $template);
+		render($args, $template);
 	} else {	
 		$usuario = new Usuario();
 		$usuario->setEmail(validInputData($_POST["email"]));
 		$usuario->setSenha(md5($_POST["senha"]));
 		$usuario->setPessoa(validInputData($_POST["pessoa"]));
+		$usuario->setPerfil(validInputData($_POST["perfil"]));
 
 		$result = $usuario->add();
 		$template = "show_message";
@@ -67,6 +80,10 @@ function edit(){
 	    $pessoas = $pessoa->getPessoas();
 	    $args['pessoas'] = $pessoas;
 
+	   	$perfil = new Perfil();
+	    $perfis = $perfil->getPerfis();
+	    $args['perfis'] = $perfis;	    
+
 		$template = "usuario_" . "edit";
 		render($args, $template);
 	} else {
@@ -75,6 +92,7 @@ function edit(){
 		$usuario->setEmail(validInputData($_POST["email"]));
 		$usuario->setSenha(md5($_POST["senha"]));
 		$usuario->setPessoa(validInputData($_POST["pessoa"]));
+		$usuario->setPerfil(validInputData($_POST["perfil"]));
 
 		$result = $usuario->edit();
 		$template = "show_message";

@@ -48,7 +48,8 @@ function check_session_active() {
     if (isset($_SESSION["userid"]) &&
             isset($_SESSION["username"]) &&
             isset($_SESSION["useremail"]) &&
-            isset($_SESSION["usercpf"])) {
+            isset($_SESSION["usercpf"])&&
+            isset($_SESSION["userperfil"])) {
             return true;
     } else {
         return false;
@@ -60,14 +61,25 @@ function create_session_user($usuario) {
     if (!isset($_SESSION["userid"]) &&
             !isset($_SESSION["username"]) &&
             !isset($_SESSION["useremail"]) &&
-            !isset($_SESSION["usercpf"])) {
+            !isset($_SESSION["usercpf"])&&
+            !isset($_SESSION["userperfil"])) {
 
         $_SESSION["userid"] = $usuario->getId();
         $_SESSION["username"] = $usuario->getPessoa()->getNome();
         $_SESSION["useremail"] = $usuario->getEmail();
         $_SESSION["usercpf"] = $usuario->getPessoa()->getCpf();
+        $_SESSION["userperfil"] = $usuario->getPerfil()->getId();
 
     } 
+}
+
+
+function is_adm_user() {
+    if ($_SESSION["userperfil"] == ADM_PERFIL) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -76,6 +88,7 @@ function destroy_session_user() {
     unset($_SESSION["username"]);
     unset($_SESSION["useremail"]);
     unset($_SESSION["usercpf"]);
+    unset($_SESSION["userperfil"]);
 
     session_unset();
     session_destroy();
