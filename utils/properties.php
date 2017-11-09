@@ -5,7 +5,7 @@ define("BASE_URL", "http://localhost/ecommerce/");
 define("MODULE_LOGIN", "comum");
 define("PAGE_LOGIN", "login");
 
-define("MODULE_HOME", "pessoa");
+define("MODULE_HOME", "anuncio");
 define("PAGE_HOME", "home");
 
 
