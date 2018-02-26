@@ -69,6 +69,7 @@ function create_session_user($usuario) {
         $_SESSION["useremail"] = $usuario->getEmail();
         $_SESSION["usercpf"] = $usuario->getPessoa()->getCpf();
         $_SESSION["userperfil"] = $usuario->getPerfil()->getId();
+        $_SESSION["UPLOAD_FOLDER"] = UPLOAD_FOLDER;
 
     } 
 }
@@ -89,6 +90,7 @@ function destroy_session_user() {
     unset($_SESSION["useremail"]);
     unset($_SESSION["usercpf"]);
     unset($_SESSION["userperfil"]);
+    unset($_SESSION["UPLOAD_FOLDER"]);
 
     session_unset();
     session_destroy();
@@ -148,8 +150,6 @@ function validInputEmail($email){
             return true;                
         }
     }
-}    
-
-
+}   
 ?>
 

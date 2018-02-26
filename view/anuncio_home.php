@@ -1,5 +1,6 @@
 <?php
 
+
 $anuncios = $args;
 
 print '<h3>Anúncios</h3>';

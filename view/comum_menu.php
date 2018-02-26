@@ -1,3 +1,6 @@
+<?php
+  $adm = $args;
+?>
 <div class="container">
   <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
@@ -11,8 +14,14 @@
   <ul class="navbar-nav nav nav-pills">
       <li class="active"><a href="<?= BASE_URL ?>"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
       <li><a href="<?= BASE_URL ?>anuncio/home"><span class="glyphicon glyphicon-usd"></span> Anúncios</a></li>
-      <li><a href="<?= BASE_URL ?>pessoa/home"><span class="glyphicon glyphicon-user"></span> Pessoas</a></li>
-      <li><a href="<?= BASE_URL ?>usuario/home"><span class="glyphicon glyphicon-hand-up"></span> Usuários</a></li>
+      <?php
+      if ($adm == TRUE) {
+      ?>
+        <li><a href="<?= BASE_URL ?>pessoa/home"><span class="glyphicon glyphicon-user"></span> Pessoas</a></li>
+        <li><a href="<?= BASE_URL ?>usuario/home"><span class="glyphicon glyphicon-hand-up"></span> Usuários</a></li>
+      <?php
+      }
+      ?>      
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="glyphicon glyphicon-wrench"></span>

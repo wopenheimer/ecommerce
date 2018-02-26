@@ -11,11 +11,19 @@ class Anuncio
 	private $datacriacao;
 	private $ultimaalteracao;
 	private $anunciante;
+	private $mainfile;
+	private $files = [];
         
     private $anuncio_dao;
     
     function __construct() {
         $this->anuncio_dao = new AnuncioDao();
+    }
+
+    static function getPublicControllers() {
+    	$publicControllers = [];
+    	$publicControllers[] = "feed";
+    	return $publicControllers;
     }
 
 	public function setId($id){
@@ -75,6 +83,30 @@ class Anuncio
 		return $this->anunciante;
 	}
 
+	public function setFiles($files){
+		$this->files = $files;
+	}
+
+	public function getFiles(){
+        $files = $this->anuncio_dao->getFilesByAnuncioId($this->getId());
+
+        if ($files){
+	        foreach ($files as $v_file) {
+	        	$this->file[] = $file;
+	        }
+    	}
+        
+        return $this->files;	
+    }
+
+	public function setMainFile($mainfile){
+		$this->mainfile = $mainfile;
+	}
+
+	public function getMainfile(){
+		return $this->mainfile;
+	}
+
 
         
 	public function getAnuncios() {            
@@ -91,6 +123,7 @@ class Anuncio
 	            $anuncio->setPreco($v_anuncio["preco"]);
 	            $anuncio->setDataCriacao($v_anuncio["datacriacao"]);
 	            $anuncio->setUltimaAlteracao($v_anuncio["ultimaalteracao"]);
+	            $anuncio->setMainFile($v_anuncio["file"]);
 
 	            $anunciante = new Pessoa();
 	            $anunciante->setCpf($v_anuncio["cpf"]);

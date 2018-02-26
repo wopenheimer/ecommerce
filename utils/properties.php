@@ -6,10 +6,12 @@ define("MODULE_LOGIN", "comum");
 define("PAGE_LOGIN", "login");
 
 define("MODULE_HOME", "anuncio");
-define("PAGE_HOME", "home");
+define("PAGE_HOME", "feed");
 
 define("ADM_PERFIL", "1");
 
+define("UPLOAD_FOLDER", "/home/wellington/img_ecommerce/");
+define("NO_IMAGE_FILE", "no_image.jpg");
 
 
 define("DB_HOST", "127.0.0.1");

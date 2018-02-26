@@ -4,22 +4,38 @@ include_once("model/anuncio.php");
 include_once("model/pessoa.php");
 include_once("utils/utils.php");
 
-switch ($_REQUEST["page"]) {
-    case 'home':
-	   home();
-       break;
-	case 'add':
-		add();
-		break;	
-	case 'edit':
-		edit();
-		break;	
-	case 'remove':
-		remove();
-		break;	
-	default:
-		# code...
-		break;
+if (!is_adm_user() && !in_array($_REQUEST["page"], Anuncio::getPublicControllers())) {
+	$template = "show_message";
+	$args['message'] = "Permissão negada.";	
+	render($args, $template);		
+} else {
+	switch ($_REQUEST["page"]) {
+	    case 'feed':
+		   feed();
+	       break;
+	    case 'home':
+		   home();
+	       break;
+		case 'add':
+			add();
+			break;	
+		case 'edit':
+			edit();
+			break;	
+		case 'remove':
+			remove();
+			break;	
+		default:
+			# code...
+			break;
+	}
+}
+
+function feed() {
+   $anuncio = new Anuncio();
+   $anuncios = $anuncio->getAnuncios();
+   $template = "anuncio_" . "feed";
+   render($anuncios, $template);	
 }
 
 
