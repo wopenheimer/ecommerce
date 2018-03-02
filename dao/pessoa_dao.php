@@ -5,7 +5,9 @@ include_once("dao.php");
 class PessoaDao extends Dao {
     
     public function getPessoas() {
-        $sql = "select * from pessoa order by cpf;";
+        $sql = "select *,  
+                to_char(datanasc, 'dd/mm/yyyy') as datanasc 
+                from pessoa order by cpf;";
         $param = array();
         $result = $this->executaQuery($sql, $param);
         return $this->getFetchAll($result);        
@@ -13,7 +15,9 @@ class PessoaDao extends Dao {
     
 
     public function getPessoaByCpf($cpf) {
-        $sql = "select * from pessoa where cpf = $1;";
+        $sql = "select *, 
+                to_char(datanasc, 'dd/mm/yyyy') as datanasc
+                from pessoa where cpf = $1;";
         $param = array();
         array_push($param, $cpf);
         $result = $this->executaQuery($sql, $param);

@@ -23,7 +23,7 @@ print '<h3>Anúncios</h3>';
 	        	?>
 	            <img class="img-responsive img-rounded pull-left" width="250px" src="<?= BASE_URL . 'utils/image.php?img=' . $img; ?> " style="margin-right: 10px" />
 	            <div>
-		            <h3><?=$anuncio->getTitulo();?></h3>
+		            <h3><a href="<?= BASE_URL ?>anuncio/view/<?= $anuncio->getId() ?>"><?=$anuncio->getTitulo();?></a></h3>
 		            <p><?=$anuncio->getPreco();?></p>
 		            <p><?=$anuncio->getAnunciante()->getNome();?></p>
 		            <p><?=$anuncio->getUltimaAlteracao();?></p>

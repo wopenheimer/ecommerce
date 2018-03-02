@@ -13,6 +13,9 @@ if (!is_adm_user() && !in_array($_REQUEST["page"], Anuncio::getPublicControllers
 	    case 'feed':
 		   feed();
 	       break;
+	    case 'view':
+		   view();
+	       break;	       
 	    case 'home':
 		   home();
 	       break;
@@ -38,6 +41,14 @@ function feed() {
    render($anuncios, $template);	
 }
 
+function view() {
+	$anuncio = new Anuncio();
+	$anuncio_obj = $anuncio->getAnuncioById(validInputData($_GET["id"]));
+	$args['anuncio'] = $anuncio_obj;
+
+	$template = "anuncio_" . "view";
+	render($args, $template);
+}
 
 function home() {
    $anuncio = new Anuncio();

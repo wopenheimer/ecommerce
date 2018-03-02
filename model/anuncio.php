@@ -23,6 +23,7 @@ class Anuncio
     static function getPublicControllers() {
     	$publicControllers = [];
     	$publicControllers[] = "feed";
+    	$publicControllers[] = "view";
     	return $publicControllers;
     }
 

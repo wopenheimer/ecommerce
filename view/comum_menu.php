@@ -13,10 +13,15 @@
   </div>
   <ul class="navbar-nav nav nav-pills">
       <li class="active"><a href="<?= BASE_URL ?>"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
-      <li><a href="<?= BASE_URL ?>anuncio/home"><span class="glyphicon glyphicon-usd"></span> Anúncios</a></li>
+
       <?php
-      if ($adm == TRUE) {
+      if ($adm == FALSE) {
       ?>
+        <li><a href="<?= BASE_URL ?>anuncio/feed"><span class="glyphicon glyphicon-usd"></span> Anúncios</a></li>
+      <?php
+      } else {
+      ?>      
+        <li><a href="<?= BASE_URL ?>anuncio/home"><span class="glyphicon glyphicon-usd"></span> Anúncios</a></li>      
         <li><a href="<?= BASE_URL ?>pessoa/home"><span class="glyphicon glyphicon-user"></span> Pessoas</a></li>
         <li><a href="<?= BASE_URL ?>usuario/home"><span class="glyphicon glyphicon-hand-up"></span> Usuários</a></li>
       <?php
