@@ -1,7 +1,7 @@
 <?php
-include_once("pessoa_add.php");
-
 $pessoas = $args;
+
+include_once("pessoa_add.php");
 
 print '<h3>Pessoas</h3>';
 
@@ -17,8 +17,8 @@ print '
 		<th>Idade</th>
 		<th>Opções</th>
 	</tr>';
-	for($i = 0; $i < sizeof($pessoas); $i++){
-		$pessoa = $pessoas[$i];
+	for($i = 0; $i < sizeof($args['pessoas']); $i++){
+		$pessoa = $args['pessoas'][$i];
 		print '<tr>
 			<td>' .$pessoa->getCpf(). '</td>
 			<td>' .$pessoa->getNome() .'</td>

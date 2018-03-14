@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Paciente</h4>
+                <h4 class="modal-title">Pessoa</h4>
             </div>
             <div class="modal-body">
 			    <form action="<?= BASE_URL ?>pessoa/add" method="POST">
@@ -32,6 +32,25 @@
 			            <label for="celular">Celular</label>
 			            <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" required>
 			        </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <select id="cidade" name="cidade" class="form-control selectpicker" data-live-search="true" required>
+                          <?php        
+                          foreach ($args['cidades'] as $cidade) {
+                            ?>
+                            <option 
+                                value="<?= $cidade->getId() ?>" 
+                                data-tokens="<?= $cidade->getNome()?>"
+                                >
+                                <?= $cidade->getNome() ?>-<?= $cidade->getEstado()->getSigla() ?>
+                            </option>
+                            <?php
+                          }
+                          ?>        
+                        </select>
+                    </div>    
+
 
 			        <div class="form-group">
 			            <label for="cep">Cep</label>

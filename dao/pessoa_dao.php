@@ -36,11 +36,11 @@ class PessoaDao extends Dao {
 
 
     public function add($pessoa) {
-        $sql = 'insert into pessoa (cpf, nome, datanasc, celular, cep) ';
-        $sql .= 'values ($1, $2, $3, $4, $5);';
+        $sql = 'insert into pessoa (cpf, nome, datanasc, celular, cidade_id, cep) ';
+        $sql .= 'values ($1, $2, $3, $4, $5, $6);';
         $param = array();
         array_push($param, $pessoa->getCpf(), $pessoa->getNome(),
-        			$pessoa->getDatanasc(), $pessoa->getCelular(), $pessoa->getCep());
+        			$pessoa->getDatanasc(), $pessoa->getCelular(), $pessoa->getCidade(), $pessoa->getCep());
 
         $result = $this->executaQuery($sql, $param);
         return $result;        
@@ -48,12 +48,12 @@ class PessoaDao extends Dao {
 
 
     public function edit($pessoa) {
-        $sql = 'update pessoa set cpf = $1, nome = $2, datanasc = $3, celular = $4, cep = $5 ';
-        $sql .= 'where cpf = $6;';
+        $sql = 'update pessoa set cpf = $1, nome = $2, datanasc = $3, celular = $4, cidade_id = $5, cep = $6 ';
+        $sql .= 'where cpf = $7;';
         $param = array();
 
         array_push($param, $pessoa->getCpf(), $pessoa->getNome(),
-                    $pessoa->getDatanasc(), $pessoa->getCelular(), $pessoa->getCep(), 
+                    $pessoa->getDatanasc(), $pessoa->getCelular(), $pessoa->getCidade(), $pessoa->getCep(), 
                     validInputData($_POST["old_cpf"]));
 
         $result = $this->executaQuery($sql, $param);

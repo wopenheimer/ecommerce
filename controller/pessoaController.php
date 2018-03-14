@@ -1,6 +1,7 @@
 <?php
 
 include_once("model/pessoa.php");
+include_once("model/cidade.php");
 include_once("utils/utils.php");
 
 if (is_adm_user()) {
@@ -29,10 +30,16 @@ if (is_adm_user()) {
 
 
 function home() {
-   $pessoa = new Pessoa();
-   $pessoas = $pessoa->getPessoas();
+    $pessoa = new Pessoa();
+    $pessoas = $pessoa->getPessoas();
+    $args['pessoas'] = $pessoas;
+
+  	$cidade = new Cidade();
+    $cidades = $cidade->getCidades();
+    $args['cidades'] = $cidades;
+
    $template = "pessoa_" . "home";
-   render($pessoas, $template);	
+   render($args, $template);	
 }
 
 
@@ -42,6 +49,7 @@ function add(){
 	$pessoa->setNome(validInputData($_POST["nome"]));
 	$pessoa->setDatanasc(validInputData($_POST["datanasc"]));
 	$pessoa->setCelular(validInputData($_POST["celular"]));
+	$pessoa->setCidade(validInputData($_POST["cidade"]));
 	$pessoa->setCep(validInputData($_POST["cep"]));
 
 	$result = $pessoa->add();
@@ -60,15 +68,21 @@ function edit(){
 	if (!$_POST) {
 		$pessoa = new Pessoa();
 		$pessoa_obj = $pessoa->getPessoaByCpf(validInputData($_GET["id"]));
+		$args['pessoa'] = $pessoa_obj;
+
+	   	$cidade = new Cidade();
+	    $cidades = $cidade->getCidades();
+	    $args['cidades'] = $cidades;
 
 		$template = "pessoa_" . "edit";
-		render($pessoa_obj, $template);
+		render($args, $template);
 	} else {
 		$pessoa = new Pessoa();
 		$pessoa->setCpf(validInputData($_POST["cpf"]));
 		$pessoa->setNome(validInputData($_POST["nome"]));
 		$pessoa->setDatanasc(validInputData($_POST["datanasc"]));
 		$pessoa->setCelular(validInputData($_POST["celular"]));
+		$pessoa->setCidade(validInputData($_POST["cidade"]));
 		$pessoa->setCep(validInputData($_POST["cep"]));
 
 		$result = $pessoa->edit();

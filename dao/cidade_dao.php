@@ -8,7 +8,7 @@ class CidadeDao extends Dao {
         $sql = "select C.*, E.id as estado_id, E.nome as estado_nome, E.sigla as estado_sigla 
                 from cidade C
                 inner join estado E on E.id = C.estado_id
-                order by id;";
+                order by E.sigla, C.nome;";
         $param = array();
         $result = $this->executaQuery($sql, $param);
         return $this->getFetchAll($result);        
