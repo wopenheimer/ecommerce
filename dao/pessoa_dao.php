@@ -5,9 +5,14 @@ include_once("dao.php");
 class PessoaDao extends Dao {
     
     public function getPessoas() {
-        $sql = "select *,  
+        $sql = "select P.*, C.id as cidade_id, C.nome as cidade_nome, C.cep_inicial as
+                cidade_cep_inicial, C.cep_final as cidade_cep_final,
+                E.id as estado_id, E.nome as estado_nome, E.sigla as estado_sigla,
                 to_char(datanasc, 'dd/mm/yyyy') as datanasc 
-                from pessoa order by cpf;";
+                from pessoa P
+                left join cidade C on C.id = P.cidade_id
+                left join estado E on E.id = C.estado_id
+                order by cpf;";
         $param = array();
         $result = $this->executaQuery($sql, $param);
         return $this->getFetchAll($result);        
@@ -15,9 +20,14 @@ class PessoaDao extends Dao {
     
 
     public function getPessoaByCpf($cpf) {
-        $sql = "select *, 
+        $sql = "select P.*, C.id as cidade_id, C.nome as cidade_nome, C.cep_inicial as
+                cidade_cep_inicial, C.cep_final as cidade_cep_final,
+                E.id as estado_id, E.nome as estado_nome, E.sigla as estado_sigla,
                 to_char(datanasc, 'dd/mm/yyyy') as datanasc
-                from pessoa where cpf = $1;";
+                from pessoa P
+                left join cidade C on C.id = P.cidade_id
+                left join estado E on E.id = C.estado_id                
+                where cpf = $1;";
         $param = array();
         array_push($param, $cpf);
         $result = $this->executaQuery($sql, $param);

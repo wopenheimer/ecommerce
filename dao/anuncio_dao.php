@@ -9,7 +9,6 @@ class AnuncioDao extends Dao {
                 to_char(A.datacriacao, 'dd/mm/yyyy HH24:MI') as datacriacao, 
                 to_char(A.ultimaalteracao, 'dd/mm/yyyy HH24:MI') as ultimaalteracao 
                 from anuncio A
-                left join pessoa P on P.cpf = A.anunciante_cpf
                 left join 
                     (
                     select distinct on(anuncio_id) * from anuncio_file
@@ -22,11 +21,10 @@ class AnuncioDao extends Dao {
     
 
     public function getAnuncioById($id) {
-        $sql = "select *, 
+        $sql = "select *,
                 to_char(A.datacriacao, 'dd/mm/yyyy HH24:MI') as datacriacao, 
                 to_char(A.ultimaalteracao, 'dd/mm/yyyy HH24:MI') as ultimaalteracao,
                 A.preco::numeric from anuncio A
-                left join pessoa P on P.cpf = A.anunciante_cpf
                 where A.id = $1;";
         $param = array();
         array_push($param, $id);

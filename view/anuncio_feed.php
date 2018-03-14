@@ -26,6 +26,13 @@ print '<h3>Anúncios</h3>';
 		            <h3><a href="<?= BASE_URL ?>anuncio/view/<?= $anuncio->getId() ?>"><?=$anuncio->getTitulo();?></a></h3>
 		            <p><?=$anuncio->getPreco();?></p>
 		            <p><?=$anuncio->getAnunciante()->getNome();?></p>
+		            <p>
+		            	<a 
+		            		href="<?= BASE_URL ?>anuncio/feed/?cidade=<?= $anuncio->getAnunciante()->getCidade()->getId(); ?>">
+		            		<?= $anuncio->getAnunciante()->getCidade()->getNome();?>-<?=$anuncio->getAnunciante()->getCidade()->getEstado()->getSigla();?>
+		            		
+		            	</a>
+		            </p>
 		            <p><?=$anuncio->getUltimaAlteracao();?></p>
 	        	</div>
 	        </div>	      

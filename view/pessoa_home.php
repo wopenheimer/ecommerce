@@ -12,6 +12,7 @@ print '
 		<th>Nome</th>
 		<th>Nascimento</th>
 		<th>Celular</th>
+		<th>Cidade</th>
 		<th>Cep</th>	
 		<th>Idade</th>
 		<th>Opções</th>
@@ -23,6 +24,7 @@ print '
 			<td>' .$pessoa->getNome() .'</td>
 			<td>' .$pessoa->getDatanasc() .'</td>
 			<td>' .$pessoa->getCelular() .'</td>
+			<td>' .$pessoa->getCidade()->getNome() . '-' . $pessoa->getCidade()->getEstado()->getSigla() .'</td>
 			<td>' .$pessoa->getCep() .'</td>
 			<td>' .$pessoa->getIdade() .'</td>
 			<td>

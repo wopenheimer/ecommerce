@@ -126,14 +126,10 @@ class Anuncio
 	            $anuncio->setUltimaAlteracao($v_anuncio["ultimaalteracao"]);
 	            $anuncio->setMainFile($v_anuncio["file"]);
 
-	            $anunciante = new Pessoa();
-	            $anunciante->setCpf($v_anuncio["cpf"]);
-	            $anunciante->setNome($v_anuncio["nome"]);
-	            $anunciante->setDatanasc($v_anuncio["datanasc"]);
-	            $anunciante->setCelular($v_anuncio["celular"]);
-	            $anunciante->setCep($v_anuncio["cep"]);
+	            $pessoa = new Pessoa();
+	            $pessoa_obj = $pessoa->getPessoaByCpf($v_anuncio["anunciante_cpf"]);
 
-	            $anuncio->setAnunciante($anunciante);
+	            $anuncio->setAnunciante($pessoa_obj);
 	            $array_anuncios[] = $anuncio;
 	        }
     	}
@@ -158,6 +154,7 @@ class Anuncio
         $anunciante->setDatanasc($v_anuncio->datanasc);
         $anunciante->setCelular($v_anuncio->celular);
         $anunciante->setCep($v_anuncio->cep);
+        $anunciante->setCidade($v_anuncio->cidade);
 
         $anuncio->setAnunciante($anunciante);
 

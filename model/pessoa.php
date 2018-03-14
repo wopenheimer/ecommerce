@@ -1,5 +1,8 @@
 <?php
 include_once("dao/pessoa_dao.php");
+include("cidade.php");
+include("estado.php");
+
 
 class Pessoa
 {
@@ -8,6 +11,7 @@ class Pessoa
 	private $datanasc;
 	private $celular;
 	private $cep;
+	private $cidade;
         
     private $pessoa_dao;
     
@@ -55,11 +59,18 @@ class Pessoa
 		return $this->cep;
 	}
 
+	public function setCidade($cidade){
+		$this->cidade = $cidade;
+	}
+
+	public function getCidade(){
+		return $this->cidade;
+	}
 
 	public function getIdade(){
 		if(isset($this->datanasc)){
 			try{
-				$datanasc = new DateTime($this->datanasc);
+				$datanasc = new DateTime(date("Y-m-d", strtotime(str_replace('/', '-', $this->datanasc))));
 		 		$now = new DateTime();
 		 		$interval = $now->diff($datanasc);
 		 		return $interval->y;
@@ -85,6 +96,21 @@ class Pessoa
 	            $pessoa->setDatanasc($v_pessoa["datanasc"]);
 	            $pessoa->setCelular($v_pessoa["celular"]);
 	            $pessoa->setCep($v_pessoa["cep"]);
+
+	            $estado = new Estado();
+	            $estado->setId($v_pessoa["estado_id"]);
+	            $estado->setNome($v_pessoa["estado_nome"]);
+	            $estado->setSigla($v_pessoa["estado_sigla"]);
+
+	            $cidade = new Cidade();
+	            $cidade->setId($v_pessoa["cidade_id"]);
+	            $cidade->setNome($v_pessoa["cidade_nome"]);
+	            $cidade->setCepInicial($v_pessoa["cidade_cep_inicial"]);
+	            $cidade->setCepFinal($v_pessoa["cidade_cep_final"]);
+	            $cidade->setEstado($estado);
+
+	            $pessoa->setCidade($cidade);
+
 	            $array_pessoas[] = $pessoa;
 	        }
     	}
@@ -102,6 +128,20 @@ class Pessoa
         $pessoa->setDatanasc($v_pessoa->datanasc);
         $pessoa->setCelular($v_pessoa->celular);
         $pessoa->setCep($v_pessoa->cep);
+
+        $estado = new Estado();
+        $estado->setId($v_pessoa->estado_id);
+        $estado->setNome($v_pessoa->estado_nome);
+        $estado->setSigla($v_pessoa->estado_sigla);
+
+        $cidade = new Cidade();
+        $cidade->setId($v_pessoa->cidade_id);
+        $cidade->setNome($v_pessoa->cidade_nome);
+        $cidade->setCepInicial($v_pessoa->cidade_cep_inicial);
+        $cidade->setCepFinal($v_pessoa->cidade_cep_final);
+        $cidade->setEstado($estado);
+
+        $pessoa->setCidade($cidade);
 
         return $pessoa;
 	}		
