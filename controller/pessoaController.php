@@ -74,8 +74,8 @@ function edit(){
 		$args['pessoa'] = $pessoa_obj;
 
 	   	$cidade = new Cidade();
-                $cidades = $cidade->getCidades();
-                $args['cidades'] = $cidades;
+                $estados = $cidade->getDistinctEstados();
+                $args['estados'] = $estados;
 
 		$template = "pessoa_" . "edit";
 		render($args, $template);

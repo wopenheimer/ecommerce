@@ -26,27 +26,40 @@
         <label for="celular">Celular</label>
         <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" value="<?=$args['pessoa']->getCelular()?>" >
     </div>
+    
 
     <div class="form-group">
-        <label for="cidade">Cidade</label>
-        <select id="cidade" name="cidade" class="form-control selectpicker" data-live-search="true" required>
+        <label for="cidade">Estado</label>
+        <select onchange="edit_estado('<?= BASE_URL; ?>')" id="estado" name="estado" class="form-control selectpicker" data-live-search="true" required>
+          <option 
+            value="" 
+            >
+            ---
+          </option>
+
           <?php        
-          foreach ($args['cidades'] as $cidade) {
+          foreach ($args['estados'] as $estado) {
             ?>
             <option 
-                value="<?= $cidade->getId() ?>" 
-                data-tokens="<?= $cidade->getNome()?>"
-                <?php 
-                   if ($args['pessoa']->getCidade()->getId() == $cidade->getId()) { 
-                        print ' selected ';
-                    }    
-                     ?>
+                value="<?= $estado->getId() ?>" 
+                data-tokens="<?= $estado->getNome()?>"
                 >
-                    <?= $cidade->getNome() ?>-<?= $cidade->getEstado()->getSigla() ?>                        
+                <?= $estado->getNome() ?>
             </option>
             <?php
           }
           ?>        
+        </select>
+    </div>    
+
+    <div class="form-group">
+        <label for="cidade">Cidade</label>
+        <select id="cidade" name="cidade" class="form-control" data-live-search="true" required>
+            <option 
+                value="" 
+                data-tokens="">
+                -----
+            </option>
         </select>
     </div>    
 
