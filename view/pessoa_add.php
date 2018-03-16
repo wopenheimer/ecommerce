@@ -33,21 +33,39 @@
 			            <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" required>
 			        </div>
 
+
                     <div class="form-group">
-                        <label for="cidade">Cidade</label>
-                        <select id="cidade" name="cidade" class="form-control selectpicker" data-live-search="true" required>
+                        <label for="cidade">Estado</label>
+                        <select onchange="edit_estado('<?= BASE_URL; ?>')" id="estado" name="estado" class="form-control selectpicker" data-live-search="true" required>
+                          <option 
+                            value="" 
+                            >
+                            ---
+                          </option>
+
                           <?php        
-                          foreach ($args['cidades'] as $cidade) {
+                          foreach ($args['estados'] as $estado) {
                             ?>
                             <option 
-                                value="<?= $cidade->getId() ?>" 
-                                data-tokens="<?= $cidade->getNome()?>"
+                                value="<?= $estado->getId() ?>" 
+                                data-tokens="<?= $estado->getNome()?>"
                                 >
-                                <?= $cidade->getNome() ?>-<?= $cidade->getEstado()->getSigla() ?>
+                                <?= $estado->getNome() ?>
                             </option>
                             <?php
                           }
                           ?>        
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <select id="cidade" name="cidade" class="form-control selectpicker" data-live-search="true" required>
+                            <option 
+                                value="" 
+                                data-tokens="">
+                                -----
+                            </option>
                         </select>
                     </div>    
 

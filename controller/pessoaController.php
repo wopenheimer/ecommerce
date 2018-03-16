@@ -18,6 +18,9 @@ if (is_adm_user()) {
 		case 'remove':
 			remove();
 			break;	
+		case 'get_cidades_by_estado':
+			get_cidades_by_estado();
+			break;				
 		default:
 			# code...
 			break;
@@ -35,8 +38,8 @@ function home() {
     $args['pessoas'] = $pessoas;
 
   	$cidade = new Cidade();
-    $cidades = $cidade->getCidades();
-    $args['cidades'] = $cidades;
+    $estados = $cidade->getDistinctEstados();
+    $args['estados'] = $estados;
 
    $template = "pessoa_" . "home";
    render($args, $template);	
@@ -113,6 +116,16 @@ function remove(){
 	render($args, $template);		
 }
 
+
+function get_cidades_by_estado() {
+	$estado_id = validInputData($_POST["estado_id"]);
+
+	$cidade = new Cidade();
+    $cidades = $cidade->getCidadesByEstado($estado_id);
+    $args['cidades'] = $cidades;
+
+    return $cidades;
+}
 
 ?>
 
