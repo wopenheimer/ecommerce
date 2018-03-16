@@ -60,7 +60,7 @@
 
                     <div class="form-group">
                         <label for="cidade">Cidade</label>
-                        <select id="cidade" name="cidade" class="form-control selectpicker" data-live-search="true" required>
+                        <select id="cidade" name="cidade" class="form-control" data-live-search="true" required>
                             <option 
                                 value="" 
                                 data-tokens="">

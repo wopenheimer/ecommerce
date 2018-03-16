@@ -33,16 +33,16 @@ if (is_adm_user()) {
 
 
 function home() {
-    $pessoa = new Pessoa();
-    $pessoas = $pessoa->getPessoas();
-    $args['pessoas'] = $pessoas;
+        $pessoa = new Pessoa();
+        $pessoas = $pessoa->getPessoas();
+        $args['pessoas'] = $pessoas;
 
   	$cidade = new Cidade();
-    $estados = $cidade->getDistinctEstados();
-    $args['estados'] = $estados;
+        $estados = $cidade->getDistinctEstados();
+        $args['estados'] = $estados;
 
-   $template = "pessoa_" . "home";
-   render($args, $template);	
+        $template = "pessoa_" . "home";
+        render($args, $template);	
 }
 
 
@@ -74,8 +74,8 @@ function edit(){
 		$args['pessoa'] = $pessoa_obj;
 
 	   	$cidade = new Cidade();
-	    $cidades = $cidade->getCidades();
-	    $args['cidades'] = $cidades;
+                $cidades = $cidade->getCidades();
+                $args['cidades'] = $cidades;
 
 		$template = "pessoa_" . "edit";
 		render($args, $template);
@@ -117,14 +117,29 @@ function remove(){
 }
 
 
-function get_cidades_by_estado() {
+function get_cidades_by_estado() {        
 	$estado_id = validInputData($_POST["estado_id"]);
 
 	$cidade = new Cidade();
-    $cidades = $cidade->getCidadesByEstado($estado_id);
-    $args['cidades'] = $cidades;
+        $cidades = $cidade->getCidadesByEstado($estado_id);        
+        $cidades_response = [];
 
-    return $cidades;
+        $cidade_response = [];
+        $cidade_response['id'] = "";
+        $cidade_response['nome'] = "----";
+        $cidades_response[] = $cidade_response;
+        
+        foreach ($cidades as $key => $cidade) {
+            $cidade_response = [];
+            $cidade_response['id'] = $cidade->getId();
+            $cidade_response['nome'] = $cidade->getNome();
+            $cidades_response[] = $cidade_response;
+        }
+        
+        $_SESSION["json_content"] = $cidades_response;
+        
+        header('Location: ' . BASE_URL . 'utils/json.php');
+        exit(0);
 }
 
 ?>
