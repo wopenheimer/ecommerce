@@ -12,6 +12,7 @@ class Pessoa
 	private $celular;
 	private $cep;
 	private $cidade;
+        private $foto;
         
     private $pessoa_dao;
     
@@ -67,6 +68,14 @@ class Pessoa
 		return $this->cidade;
 	}
 
+	public function setFoto($foto){
+		$this->foto = $foto;
+	}
+
+	public function getFoto(){
+		return $this->foto;
+	}
+        
 	public function getIdade(){
 		if(isset($this->datanasc)){
 			try{
@@ -96,6 +105,7 @@ class Pessoa
 	            $pessoa->setDatanasc($v_pessoa["datanasc"]);
 	            $pessoa->setCelular($v_pessoa["celular"]);
 	            $pessoa->setCep($v_pessoa["cep"]);
+                    $pessoa->setFoto($v_pessoa["foto"]);
 
 	            $estado = new Estado();
 	            $estado->setId($v_pessoa["estado_id"]);
@@ -128,6 +138,7 @@ class Pessoa
         $pessoa->setDatanasc($v_pessoa->datanasc);
         $pessoa->setCelular($v_pessoa->celular);
         $pessoa->setCep($v_pessoa->cep);
+        $pessoa->setFoto($v_pessoa->foto);
 
         $estado = new Estado();
         $estado->setId($v_pessoa->estado_id);

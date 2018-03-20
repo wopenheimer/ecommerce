@@ -8,6 +8,11 @@
             <div class="modal-body">
 			    <form action="<?= BASE_URL ?>pessoa/add" method="POST">
 			        <div class="form-group">
+			            <label for="foto">Foto</label>
+			            <input type="file" class="form-control-file" id="foto" name="foto" accept="image/jpeg" required>
+			        </div>
+                                
+			        <div class="form-group">
 			            <label for="cpf">Cpf</label>
 			            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Cpf" required>
 			        </div>
