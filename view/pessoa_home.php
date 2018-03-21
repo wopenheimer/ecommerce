@@ -8,6 +8,7 @@ print '<h3>Pessoas</h3>';
 print '
 <table class="table">
 	<tr>
+		<th>Foto</th>
 		<th>CPF</th>
 		<th>Nome</th>
 		<th>Nascimento</th>
@@ -20,6 +21,9 @@ print '
 	for($i = 0; $i < sizeof($args['pessoas']); $i++){
 		$pessoa = $args['pessoas'][$i];
 		print '<tr>
+		    <td>
+		      <img class="img-responsive img-circle pull-left" width="30px" src="'. BASE_URL . 'utils/image.php?img=' . $pessoa->getFoto() . '" />		    
+		    </td>
 			<td>' .$pessoa->getCpf(). '</td>
 			<td>' .$pessoa->getNome() .'</td>
 			<td>' .$pessoa->getDatanasc() .'</td>

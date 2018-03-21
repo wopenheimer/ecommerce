@@ -54,6 +54,7 @@ function add(){
 	$pessoa->setCelular(validInputData($_POST["celular"]));
 	$pessoa->setCidade(validInputData($_POST["cidade"]));
 	$pessoa->setCep(validInputData($_POST["cep"]));
+	$pessoa->setFoto(uploadFile($_FILES["foto"]));
 
 	$result = $pessoa->add();
 	$template = "show_message";

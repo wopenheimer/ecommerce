@@ -12,7 +12,7 @@ class Pessoa
 	private $celular;
 	private $cep;
 	private $cidade;
-        private $foto;
+    private $foto;
         
     private $pessoa_dao;
     
@@ -105,7 +105,7 @@ class Pessoa
 	            $pessoa->setDatanasc($v_pessoa["datanasc"]);
 	            $pessoa->setCelular($v_pessoa["celular"]);
 	            $pessoa->setCep($v_pessoa["cep"]);
-                    $pessoa->setFoto($v_pessoa["foto"]);
+                $pessoa->setFoto($v_pessoa["foto"]);
 
 	            $estado = new Estado();
 	            $estado->setId($v_pessoa["estado_id"]);
