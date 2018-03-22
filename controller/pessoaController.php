@@ -75,8 +75,8 @@ function edit(){
 		$args['pessoa'] = $pessoa_obj;
 
 	   	$cidade = new Cidade();
-                $estados = $cidade->getDistinctEstados();
-                $args['estados'] = $estados;
+        $estados = $cidade->getDistinctEstados();
+        $args['estados'] = $estados;
 
 		$template = "pessoa_" . "edit";
 		render($args, $template);
@@ -88,6 +88,7 @@ function edit(){
 		$pessoa->setCelular(validInputData($_POST["celular"]));
 		$pessoa->setCidade(validInputData($_POST["cidade"]));
 		$pessoa->setCep(validInputData($_POST["cep"]));
+		$pessoa->setFoto(uploadFile($_FILES["foto"]));
 
 		$result = $pessoa->edit();
 		$template = "show_message";

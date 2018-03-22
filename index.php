@@ -24,7 +24,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?= BASE_URL ?>view/js/bootstrap.min.js"></script>
     <script src="<?= BASE_URL ?>view/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="<?= BASE_URL ?>view/js/locale/bootstrap-datetimepicker.pt-BR.js"></script>
+    <script src="<?= BASE_URL ?>view/js/locales/bootstrap-datetimepicker.pt-BR.js"></script>
     <script src="<?= BASE_URL ?>view/js/jquery-3.3.1.min.js"></script>
     <script src="<?= BASE_URL ?>view/js/comum.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>    

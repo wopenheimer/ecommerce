@@ -160,6 +160,10 @@ function generateRandomId() {
 
 function uploadFile($file) {
     $target_dir = UPLOAD_FOLDER;
+
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
     $target_file = $target_dir . basename($file["name"]);
     $target_name = generateRandomId();
     $uploadOk = 1;

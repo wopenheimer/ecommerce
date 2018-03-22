@@ -1,4 +1,17 @@
- <form action="<?= BASE_URL ?>pessoa/edit" method="POST">
+ <form action="<?= BASE_URL ?>pessoa/edit" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="foto">Alterar Foto</label>
+        <input type="file" class="form-control-file" id="foto" name="foto" accept="image/jpeg" 
+        <?php
+        if ($args['pessoa']->getFoto() == "" || $args['pessoa']->getFoto() == null) {
+        ?>
+            required
+        <?php
+        }
+        ?>        
+        >
+    </div>
+
     <div class="form-group">
         <label for="cpf">Cpf</label>
         <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Cpf" value="<?=$args['pessoa']->getCpf()?>" required>
