@@ -88,7 +88,12 @@ function edit(){
 		$pessoa->setCelular(validInputData($_POST["celular"]));
 		$pessoa->setCidade(validInputData($_POST["cidade"]));
 		$pessoa->setCep(validInputData($_POST["cep"]));
-		$pessoa->setFoto(uploadFile($_FILES["foto"]));
+		if ($_FILES["foto"]["name"] != "") {
+			$pessoa->setFoto(uploadFile($_FILES["foto"]));		
+		} else {
+			$pessoa_obj = $pessoa->getPessoaByCpf(validInputData($_POST["old_cpf"]));
+			$pessoa->setFoto($pessoa_obj->getFoto());
+		}
 
 		$result = $pessoa->edit();
 		$template = "show_message";
