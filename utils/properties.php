@@ -10,6 +10,10 @@ define("PAGE_HOME", "feed");
 
 define("ADM_PERFIL", "1");
 
+const PUBLIC_PAGES = array('login' => array('controller' => 'comum'), 
+						   'novousuario' => array('controller' => 'comum')
+						   );
+
 define("UPLOAD_FOLDER", "/home/wellington/img_ecommerce/");
 define("NO_IMAGE_FILE", "no_image.jpg");
 

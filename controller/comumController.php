@@ -9,6 +9,9 @@ switch ($_REQUEST["page"]) {
     case 'logout':
 	   logout();
        break;
+    case 'novousuario':
+	   novousuario();
+       break;       
 
 }
 
@@ -36,6 +39,29 @@ function login() {
 	}
 }
 
+
+function novousuario() {
+	if (!$_POST) {
+	    $template = "comum_" . "novousuario";
+	    render(null, $template);	
+	} else {	
+		// $usuario = new Usuario();
+		// $usuario->setEmail(validInputData($_POST["email"]));
+		// $usuario->setSenha(md5($_POST["senha"]));
+
+		// $usuario_obj = $usuario->getLogin();
+
+		// $args = null;
+		// if ($usuario_obj) {
+		// 	create_session_user($usuario_obj);
+		// 	header("Location: " . BASE_URL . MODULE_HOME . "/" . PAGE_HOME);			
+		// } else {
+		// 	$template = "show_message";
+		// 	$args['message'] = "Falha no login.";	
+		// }
+		// render($args, $template);
+	}
+}
 
 function logout() {
 	destroy_session_user();

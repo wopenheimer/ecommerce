@@ -29,8 +29,19 @@ function index() {
             }
             break;
         case false:
-            $_REQUEST["page"] = PAGE_LOGIN;
-            include("controller/" . MODULE_LOGIN ."Controller.php");              
+            $module = MODULE_LOGIN;
+            $page = PAGE_LOGIN;        
+            if (isset($_REQUEST["module"]) && isset($_REQUEST["page"]))  {
+                foreach (PUBLIC_PAGES as $key => $value) {
+                  if ($_REQUEST["page"] == $key) {
+                    $module = $value['controller'];
+                    $page = $key;
+                    break;
+                  }
+                }                
+            }    
+            $_REQUEST["page"] = $page;
+            include("controller/" . $module ."Controller.php");              
             break;        
         default:
             # code...
