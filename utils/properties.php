@@ -28,9 +28,9 @@ define("DB_NAME", "ecommerce");
 
 define("EMAIL_HOST", "smtp.gmail.com");
 define("EMAIL_PORT", "587");
-define("EMAIL_USERNAME", "wopenheimer@gmail.com");
-define("EMAIL_PASSWORD", "acsd64dwsa2775");
-define("EMAIL_FROM", "wopenheimer@gmail.com");
+define("EMAIL_USERNAME", "");
+define("EMAIL_PASSWORD", "");
+define("EMAIL_FROM", "");
 
 
 ?>
