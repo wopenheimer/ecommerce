@@ -56,6 +56,12 @@ function add(){
 		$usuario->setSenha(md5($_POST["senha"]));
 		$usuario->setPessoa(validInputData($_POST["pessoa"]));
 		$usuario->setPerfil(validInputData($_POST["perfil"]));
+                if (isset($_POST["ativo"])) {
+                    $ativo = 1;
+                } else {
+                    $ativo = 0;
+                }
+                $usuario->setAtivo($ativo);
 
 		$result = $usuario->add();
 		$template = "show_message";
@@ -93,7 +99,12 @@ function edit(){
 		$usuario->setSenha(md5($_POST["senha"]));
 		$usuario->setPessoa(validInputData($_POST["pessoa"]));
 		$usuario->setPerfil(validInputData($_POST["perfil"]));
-
+                if (isset($_POST["ativo"])) {
+                    $ativo = 1;
+                } else {
+                    $ativo = 0;
+                }
+                $usuario->setAtivo($ativo);
 		$result = $usuario->edit();
 		$template = "show_message";
 

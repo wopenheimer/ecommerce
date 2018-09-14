@@ -2,8 +2,29 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.8
--- Dumped by pg_dump version 9.6.8
+-- Dumped from database version 10.5 (Ubuntu 10.5-1.pgdg16.04+1)
+-- Dumped by pg_dump version 10.5 (Ubuntu 10.5-1.pgdg16.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: ecommerce; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE ecommerce WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'pt_BR.UTF-8' LC_CTYPE = 'pt_BR.UTF-8';
+
+
+ALTER DATABASE ecommerce OWNER TO postgres;
+
+\connect ecommerce
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -212,7 +233,8 @@ CREATE TABLE public.usuario (
     email character varying(100) NOT NULL,
     senha character varying(100) NOT NULL,
     pessoa_cpf character varying NOT NULL,
-    perfil_id integer NOT NULL
+    perfil_id integer NOT NULL,
+    ativo boolean DEFAULT true
 );
 
 
@@ -293,13 +315,6 @@ COPY public.anuncio_file (anuncio_id, file) FROM stdin;
 2	ford_ecosport_2016_1_17102016_4014_960_720.jpg
 2	FORD_ECOSPORT_1.6_SE_16V_FLEX_4P_MANUAL_34457015391898282.jpg
 \.
-
-
---
--- Name: anuncio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.anuncio_id_seq', 4, true);
 
 
 --
@@ -5876,13 +5891,6 @@ COPY public.cidade (id, nome, estado_id, cep_inicial, cep_final) FROM stdin;
 
 
 --
--- Name: cidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.cidade_id_seq', 1, true);
-
-
---
 -- Data for Name: estado; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -5918,13 +5926,6 @@ COPY public.estado (id, nome, sigla) FROM stdin;
 
 
 --
--- Name: estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.estado_id_seq', 1, false);
-
-
---
 -- Data for Name: perfil; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -5932,13 +5933,6 @@ COPY public.perfil (id, descricao) FROM stdin;
 1	Administrador
 2	Comum
 \.
-
-
---
--- Name: perfil_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.perfil_id_seq', 2, true);
 
 
 --
@@ -5956,18 +5950,46 @@ COPY public.pessoa (cpf, nome, datanasc, celular, cep, cidade_id, foto) FROM std
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.usuario (id, email, senha, pessoa_cpf, perfil_id) FROM stdin;
-8	wopenheimer@gmail.com	7b7a38b5937d62b9103540549e1b9f45	07437690667	1
-10	abigail@gmail.com	202cb962ac59075b964b07152d234b70	123456	2
-9	silvio@gmail.com	202cb962ac59075b964b07152d234b70	23833823615	2
+COPY public.usuario (id, email, senha, pessoa_cpf, perfil_id, ativo) FROM stdin;
+9	silvio@gmail.com	202cb962ac59075b964b07152d234b70	23833823615	2	t
+8	wopenheimer@gmail.com	7b7a38b5937d62b9103540549e1b9f45	07437690667	1	t
+15	abigail@gmail.com	202cb962ac59075b964b07152d234b70	123456	2	t
 \.
+
+
+--
+-- Name: anuncio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.anuncio_id_seq', 4, true);
+
+
+--
+-- Name: cidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cidade_id_seq', 1, true);
+
+
+--
+-- Name: estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.estado_id_seq', 1, false);
+
+
+--
+-- Name: perfil_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.perfil_id_seq', 2, true);
 
 
 --
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 11, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 15, true);
 
 
 --

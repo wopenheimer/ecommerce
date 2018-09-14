@@ -10,6 +10,7 @@ class Usuario
 	private $senha;
 	private $pessoa;
 	private $perfil;
+        private $ativo;
         
     private $usuario_dao;
     
@@ -57,6 +58,13 @@ class Usuario
 		return $this->perfil;
 	}
 
+	public function setAtivo($ativo){
+		$this->ativo = $ativo;
+	}
+
+	public function getAtivo(){
+		return $this->ativo;
+	}
         
 	public function getUsuarios() {            
             
@@ -69,6 +77,7 @@ class Usuario
 	            $usuario->setId($v_usuario["usuario_id"]);
 	            $usuario->setEmail($v_usuario["email"]);
 	            $usuario->setSenha($v_usuario["senha"]);
+                    $usuario->setAtivo($v_usuario["ativo"]);
 
 	            $pessoa = new Pessoa();
 	            $pessoa->setCpf($v_usuario["cpf"]);
@@ -99,6 +108,7 @@ class Usuario
         $usuario->setId($v_usuario->usuario_id);
         $usuario->setEmail($v_usuario->email);
         $usuario->setSenha($v_usuario->senha);
+        $usuario->setAtivo($v_usuario->ativo);
 
         $pessoa = new Pessoa();
         $pessoa->setCpf($v_usuario->cpf);
@@ -146,6 +156,7 @@ class Usuario
 	        $usuario->setId($v_usuario->usuario_id);
 	        $usuario->setEmail($v_usuario->email);
 	        $usuario->setSenha($v_usuario->senha);
+                $usuario->setAtivo($v_usuario->ativo);
 
 	        $pessoa = new Pessoa();
 	        $pessoa->setCpf($v_usuario->cpf);

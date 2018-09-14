@@ -36,7 +36,8 @@ class UsuarioDao extends Dao {
                 left join perfil PE on PE.id = U.perfil_id
                 where 
                 U.email = $1 and
-                senha = $2;";
+                senha = $2 and
+                U.ativo = true;";
         $param = array();
         array_push($param, $usuario->getEmail(), $usuario->getSenha());
         $result = $this->executaQuery($sql, $param);
@@ -45,10 +46,10 @@ class UsuarioDao extends Dao {
 
 
     public function add($usuario) {
-        $sql = 'insert into usuario (email, senha, pessoa_cpf, perfil_id) ';
-        $sql .= 'values ($1, $2, $3, $4);';
+        $sql = 'insert into usuario (email, senha, pessoa_cpf, perfil_id, ativo) ';
+        $sql .= 'values ($1, $2, $3, $4, $5);';
         $param = array();
-        array_push($param, $usuario->getEmail(), $usuario->getSenha(), $usuario->getPessoa(), $usuario->getPerfil());
+        array_push($param, $usuario->getEmail(), $usuario->getSenha(), $usuario->getPessoa(), $usuario->getPerfil(), $usuario->getAtivo());
 
         $result = $this->executaQuery($sql, $param);
         return $result;        
@@ -56,10 +57,10 @@ class UsuarioDao extends Dao {
 
 
     public function edit($usuario) {
-        $sql = 'update usuario set email = $1, senha = $2, pessoa_cpf = $3, perfil_id = $4 ';
-        $sql .= 'where id = $5;';
+        $sql = 'update usuario set email = $1, senha = $2, pessoa_cpf = $3, perfil_id = $4, ativo = $5 ';
+        $sql .= 'where id = $6;';
         $param = array();
-        array_push($param, $usuario->getEmail(), $usuario->getSenha(), $usuario->getPessoa(), $usuario->getPerfil(), $usuario->getId());
+        array_push($param, $usuario->getEmail(), $usuario->getSenha(), $usuario->getPessoa(), $usuario->getPerfil(), $usuario->getAtivo(), $usuario->getId());
 
         $result = $this->executaQuery($sql, $param);
         return $result;        

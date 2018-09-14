@@ -1,5 +1,6 @@
 <?php
 include_once("model/usuario.php");
+include_once("model/cidade.php");
 include_once("utils/utils.php");
 
 switch ($_REQUEST["page"]) {
@@ -33,7 +34,7 @@ function login() {
 			header("Location: " . BASE_URL . MODULE_HOME . "/" . PAGE_HOME);			
 		} else {
 			$template = "show_message";
-			$args['message'] = "Falha no login.";	
+			$args['message'] = "Falha no login ou Usuário não está ativo no sistema.";	
 		}
 		render($args, $template);
 	}
@@ -42,8 +43,12 @@ function login() {
 
 function novousuario() {
 	if (!$_POST) {
+	  	$cidade = new Cidade();
+        $estados = $cidade->getDistinctEstados();
+        $args['estados'] = $estados;
+
 	    $template = "comum_" . "novousuario";
-	    render(null, $template);	
+	    render($args, $template);	
 	} else {	
 		// $usuario = new Usuario();
 		// $usuario->setEmail(validInputData($_POST["email"]));

@@ -60,6 +60,12 @@
     </select>
 
     </div>
+     
+    <div class="form-group">
+        <label for="ativo">
+            <input type="checkbox" value="1" id="ativo" name="ativo" <?php if ($args['usuario']->getAtivo() == 't') { print 'checked';}?>> Ativo
+        </label>    
+    </div>         
 
 
     <button type="submit" class="btn btn-primary">Enviar</button>

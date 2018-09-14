@@ -25,6 +25,16 @@ if (is_adm_user()) {
 			# code...
 			break;
 	}
+} elseif (array_key_exists($_REQUEST["page"], PUBLIC_PAGES)) {
+	switch ($_REQUEST["page"]) {
+		case 'get_cidades_by_estado':
+			get_cidades_by_estado();
+			break;				
+		default:
+			# code...
+			break;
+	}
+
 } else {
 	$template = "show_message";
 	$args['message'] = "Permissão negada.";	
