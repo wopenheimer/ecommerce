@@ -234,7 +234,8 @@ CREATE TABLE public.usuario (
     senha character varying(100) NOT NULL,
     pessoa_cpf character varying NOT NULL,
     perfil_id integer NOT NULL,
-    ativo boolean DEFAULT true
+    ativo boolean DEFAULT true,
+    hash_validacao character varying(300) DEFAULT NULL::character varying
 );
 
 
@@ -5943,6 +5944,7 @@ COPY public.pessoa (cpf, nome, datanasc, celular, cep, cidade_id, foto) FROM std
 07437690667	Wellington Openheimer Ribeiro	1986-10-27	(35)988689949	37.550000	3152501	\N
 23833823615	Silvio Torquato Ribeiro	1955-02-14	\N	\N	3152501	\N
 123456	Abigail Ribeiro	1964-11-24		5345543	4305108	\N
+123	Júlia Marinho	\N	\N	\N	3152501	\N
 \.
 
 
@@ -5950,10 +5952,11 @@ COPY public.pessoa (cpf, nome, datanasc, celular, cep, cidade_id, foto) FROM std
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.usuario (id, email, senha, pessoa_cpf, perfil_id, ativo) FROM stdin;
-9	silvio@gmail.com	202cb962ac59075b964b07152d234b70	23833823615	2	t
-8	wopenheimer@gmail.com	7b7a38b5937d62b9103540549e1b9f45	07437690667	1	t
-15	abigail@gmail.com	202cb962ac59075b964b07152d234b70	123456	2	t
+COPY public.usuario (id, email, senha, pessoa_cpf, perfil_id, ativo, hash_validacao) FROM stdin;
+9	silvio@gmail.com	202cb962ac59075b964b07152d234b70	23833823615	2	t	\N
+8	wopenheimer@gmail.com	7b7a38b5937d62b9103540549e1b9f45	07437690667	1	t	\N
+15	abigail@gmail.com	202cb962ac59075b964b07152d234b70	123456	2	t	\N
+26	wellington.ribeiro@ifsuldeminas.edu.br	202cb962ac59075b964b07152d234b70	123	2	t	2dd5869357536e35d3f0fcc869c09e1e
 \.
 
 
@@ -5989,7 +5992,7 @@ SELECT pg_catalog.setval('public.perfil_id_seq', 2, true);
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 15, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 26, true);
 
 
 --
@@ -6062,6 +6065,14 @@ ALTER TABLE ONLY public.anuncio_file
 
 ALTER TABLE ONLY public.pessoa
     ADD CONSTRAINT uk1_pessoa UNIQUE (foto);
+
+
+--
+-- Name: usuario uk_hash; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT uk_hash UNIQUE (hash_validacao);
 
 
 --

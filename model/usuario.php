@@ -11,6 +11,7 @@ class Usuario
 	private $pessoa;
 	private $perfil;
         private $ativo;
+        private $hash_validacao;
         
     private $usuario_dao;
     
@@ -64,6 +65,14 @@ class Usuario
 
 	public function getAtivo(){
 		return $this->ativo;
+	}
+
+	public function setHashValidacao($hash_validacao){
+		$this->hash_validacao = $hash_validacao;
+	}
+
+	public function getHashValidacao(){
+		return $this->hash_validacao;
 	}
         
 	public function getUsuarios() {            
@@ -128,7 +137,28 @@ class Usuario
 
         return $usuario;
 	}		
+
+
+	public function getUsuarioByHash($hash) {                        
+            $v_usuario = $this->usuario_dao->getUsuarioByHash($hash);
+            
+            if (is_object($v_usuario)){
+                $usuario = new Usuario();
+                $usuario->setId($v_usuario->id);
+                $usuario->setEmail($v_usuario->email);
+                $usuario->setSenha($v_usuario->senha);
+                $usuario->setAtivo($v_usuario->ativo);
+
+                return $usuario;                
+            } else {
+                return False;
+            }
+	}		        
         
+	public function ativarUsuario() {                        
+            $result = $this->usuario_dao->ativarUsuario($this);
+            return $result;
+	}	                
 
 	public function add() {                        
         $result = $this->usuario_dao->add($this);        
@@ -175,9 +205,26 @@ class Usuario
 		} 
 
         return $usuario;
-	}	        		
+	}
+        
+        public function envia_email_novousuario() {
+            try {
+                $GLOBALS['mail']->addAddress($this->getEmail(), $this->getPessoa()->getNome());
 
+                $GLOBALS['mail']->Subject = 'Ative sua conta no ECOMMERCE';
+                $GLOBALS['mail']->Body = '<p>Olá ' . $this->getPessoa()->getNome() . '</p>';
+                $GLOBALS['mail']->Body .= '<p>Ative sua conta no Ecommerce através deste link: </p>';
+                $GLOBALS['mail']->Body .= '<p>' . BASE_URL . 'comum/ativarusuario/' . $this->getHashValidacao() . '</p>';
+                $GLOBALS['mail']->Body .= '<p>Agradecemos a preferência.</p>';
 
+                $GLOBALS['mail']->send();
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }            
+        }
+        
+        
 }
 
 ?>

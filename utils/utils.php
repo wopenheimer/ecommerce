@@ -6,8 +6,11 @@
  * and open the template in the editor.
  */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 function index() {
+    $GLOBALS['mail'] = create_instance_email();
     switch (check_session_active()) {
         case true:
             if (isset($_REQUEST["module"]) && isset($_REQUEST["page"]))  {
@@ -220,6 +223,21 @@ function uploadFile($file) {
             //echo "Sorry, there was an error uploading your file.";
         }
     }    
+}
+
+function create_instance_email() {
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = EMAIL_HOST;
+    $mail->SMTPAuth = true;
+    $mail->Username = EMAIL_USERNAME;
+    $mail->Password = EMAIL_PASSWORD;
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = EMAIL_PORT;
+    $mail->setFrom(EMAIL_FROM, 'Ecommerce');
+    $mail->isHTML(true);
+    
+    return $mail;
 }
 ?>
 

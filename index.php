@@ -2,6 +2,10 @@
   session_start();
   include_once("utils/properties.php");  
   include_once("utils/utils.php");
+  include_once("lib/PHPMailer/src/PHPMailer.php");
+  include_once("lib/PHPMailer/src/Exception.php");
+  include_once("lib/PHPMailer/src/PHPMailer.php");
+  include_once("lib/PHPMailer/src/SMTP.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

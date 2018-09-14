@@ -28,6 +28,27 @@ class UsuarioDao extends Dao {
         return $this->getFetchObject($result);        
     }
 
+    
+    public function getUsuarioByHash($hash) {
+        $sql = "select *
+                from usuario U
+                where U.hash_validacao = $1 and U.ativo = False;";
+        $param = array();
+        array_push($param, $hash);
+        $result = $this->executaQuery($sql, $param);
+        return $this->getFetchObject($result);        
+    }   
+    
+
+    public function ativarUsuario($usuario) {
+        $sql = 'update usuario set ativo = True ';
+        $sql .= 'where id = $1;';
+        $param = array();
+        array_push($param, $usuario->getId());
+
+        $result = $this->executaQuery($sql, $param);
+        return $result;        
+    }    
 
     public function getLogin($usuario) {
         $sql = "select *, U.id as usuario_id, PE.id as perfil_id
@@ -46,10 +67,10 @@ class UsuarioDao extends Dao {
 
 
     public function add($usuario) {
-        $sql = 'insert into usuario (email, senha, pessoa_cpf, perfil_id, ativo) ';
-        $sql .= 'values ($1, $2, $3, $4, $5);';
+        $sql = 'insert into usuario (email, senha, pessoa_cpf, perfil_id, ativo, hash_validacao) ';
+        $sql .= 'values ($1, $2, $3, $4, $5, $6);';
         $param = array();
-        array_push($param, $usuario->getEmail(), $usuario->getSenha(), $usuario->getPessoa(), $usuario->getPerfil(), $usuario->getAtivo());
+        array_push($param, $usuario->getEmail(), $usuario->getSenha(), $usuario->getPessoa(), $usuario->getPerfil(), $usuario->getAtivo(), $usuario->getHashValidacao());
 
         $result = $this->executaQuery($sql, $param);
         return $result;        
