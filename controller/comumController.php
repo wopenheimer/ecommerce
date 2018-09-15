@@ -2,6 +2,7 @@
 include_once("model/usuario.php");
 include_once("model/cidade.php");
 include_once("utils/utils.php");
+include_once("dao/dao.php");
 
 switch ($_REQUEST["page"]) {
     case 'login':
@@ -52,7 +53,10 @@ function novousuario() {
 
 	    $template = "comum_" . "novousuario";
 	    render($args, $template);	
-	} else {	
+	} else {
+            $GLOBALS['dao'] = new Dao();
+            $GLOBALS['dao']->beginTransaction();
+
             $pessoa = new Pessoa();
             $pessoa->setCpf(validInputData($_POST["cpf"]));
             $pessoa->setNome(validInputData($_POST["nome"]));
@@ -70,6 +74,8 @@ function novousuario() {
             $usuario->setHashValidacao($hash_validacao);
 
             $result = $usuario->add();
+
+            $GLOBALS['dao']->commitTransaction();
             
             $template = "show_message";
 

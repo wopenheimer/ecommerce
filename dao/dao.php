@@ -11,6 +11,7 @@ class Dao {
     private $query;
     private $result;
     private $dbtipo;
+    private $transaction;
 
     function __construct() {
             $this->dbhost = DB_HOST;
@@ -18,6 +19,15 @@ class Dao {
             $this->dbsenha = DB_PASSWORD;
             $this->dbport = DB_PORT;
             $this->dbname = DB_NAME;
+            $this->transaction = false;
+    }
+
+    public function getCondb() {
+        return $this->condb;
+    }
+
+    public function getTransaction() {
+        return $this->transaction;
     }
 
 
@@ -36,22 +46,58 @@ class Dao {
     }
 
     public function executaQuery($query, $params) {
-            $this->conecta_postgres();
+            if (!isset($GLOBALS['dao'])) {
+                $this->conecta_postgres();    
+            }
+            
             $this->query = $query;
 
-            $result = pg_prepare($this->condb, "query", $this->query);
+            $condb = Null;
+            if(isset($GLOBALS['dao'])) {
+                if ($GLOBALS['dao']->getCondb() != Null) {
+                    $condb = $GLOBALS['dao']->getCondb();
+                } else {
+                    $condb = $this->condb;
+                }
+            } else {
+                $condb = $this->condb;
+            }
 
-            if ($this->result = pg_execute($this->condb, "query", $params)) {
-                $this->desconecta_postgres();
+            $query = md5(uniqid(rand(), true));
+
+            $result = pg_prepare($condb, $query, $this->query);
+
+            if ($this->result = pg_execute($condb, $query, $params)) {
+                if (!isset($GLOBALS['dao'])) {
+                    $this->desconecta_postgres();    
+                } elseif ($GLOBALS['dao']->getTransaction() == False) { 
+                    $this->desconecta_postgres();
+                }
                 return $this->result;
             } else {
 //                echo "Ocorreu um erro na execução da SQL.<br>";
 //                echo "<br>" . pg_last_error();
 //                echo "<br>SQL: " . $query;
-                $this->desconecta_postgres();
+                if (!isset($GLOBALS['dao'])) {
+                    $this->desconecta_postgres();    
+                } else {
+                    $GLOBALS['dao']->desconecta_postgres();
+                }
                 return false;
             }
     }
+
+    public function beginTransaction() {
+        $this->conecta_postgres();    
+        pg_query($this->condb,"begin;");
+        $this->transaction = True;
+    }
+
+    public function commitTransaction() {
+        pg_query($this->condb,"commit;");
+        $this->desconecta_postgres();        
+        $this->transaction = False;
+    }    
     
     function getNumRows($query) {
             return pg_num_rows($query);
