@@ -17,6 +17,9 @@ switch ($_REQUEST["page"]) {
     case 'ativarusuario':
 	   ativarusuario();
        break;          
+    case 'esqueceusuasenha':
+           esqueceusuasenha();
+       break;                 
 
 }
 
@@ -89,6 +92,34 @@ function novousuario() {
             render($args, $template);
 	}
 }
+
+
+function esqueceusuasenha() {
+	if (!$_POST) {
+	    $template = "comum_" . "esqueceusuasenha";
+	    render(null, $template);	
+	} else {
+            $usuario = new Usuario();
+            $usuario_obj = $usuario->getUsuarioByEmail(validInputData($_POST["email"]));            
+
+            if ($usuario_obj == False) {
+                $args['message'] = "Usuário não encontrado.";	
+            } else {
+//                $result = $usuario_obj->ativarUsuario();
+//                if ($result) {
+//                    $args['message'] = "O Usuário com respectivo email " . $usuario_obj->getEmail() . " foi validado. <br />";	
+//                    $args['message'] .= 'Você pode acessar sua conta agora: <a href="' . BASE_URL . MODULE_LOGIN . '/' . PAGE_LOGIN . '">' . BASE_URL . MODULE_LOGIN . "/" . PAGE_LOGIN .'</a>';
+//                } else {
+//                    $args['message'] = "Houve um erro na ativação do usuário.";	
+//                }
+            }
+
+            $template = "show_message";
+
+            render($args, $template);            
+	}
+}
+
 
 function ativarusuario(){
 	if (isset($_GET["id"])) {

@@ -7,5 +7,8 @@
       <div class="text-center" style="margin-top: 20px">      
         <a href="<?= BASE_URL ?>comum/novousuario">Novo Usuário</a>      
       </div>          
+      <div class="text-center" style="margin-top: 10px">
+        <a href="<?= BASE_URL ?>comum/esqueceusuasenha">Esqueceu Sua Senha</a>      
+      </div>
     </form>
   </div>

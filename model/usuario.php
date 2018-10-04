@@ -155,6 +155,23 @@ class Usuario
             }
 	}		        
         
+        
+	public function getUsuarioByEmail($email) {                        
+            $v_usuario = $this->usuario_dao->getUsuarioByEmail($email);
+            
+            if (is_object($v_usuario)){
+                $usuario = new Usuario();
+                $usuario->setId($v_usuario->id);
+                $usuario->setEmail($v_usuario->email);
+                $usuario->setSenha($v_usuario->senha);
+                $usuario->setAtivo($v_usuario->ativo);
+
+                return $usuario;                
+            } else {
+                return False;
+            }
+	}		                
+        
 	public function ativarUsuario() {                        
             $result = $this->usuario_dao->ativarUsuario($this);
             return $result;

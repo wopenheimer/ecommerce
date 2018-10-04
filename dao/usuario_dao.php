@@ -38,6 +38,17 @@ class UsuarioDao extends Dao {
         $result = $this->executaQuery($sql, $param);
         return $this->getFetchObject($result);        
     }   
+
+    
+    public function getUsuarioByEmail($email) {
+        $sql = "select *
+                from usuario U
+                where U.email = $1 and U.ativo = True;";
+        $param = array();
+        array_push($param, $email);
+        $result = $this->executaQuery($sql, $param);
+        return $this->getFetchObject($result);        
+    }       
     
 
     public function ativarUsuario($usuario) {
