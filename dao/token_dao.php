@@ -9,7 +9,7 @@ class TokenDao extends Dao {
                 from token T
                 inner join usuario U on U.id = T.usuario_id
                 where T.token = $1 and
-                T.validade <= now();";
+                T.validade >= now();";
         $param = array();
         array_push($param, $token);
         $result = $this->executaQuery($sql, $param);

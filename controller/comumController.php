@@ -21,6 +21,9 @@ switch ($_REQUEST["page"]) {
     case 'esqueceusuasenha':
            esqueceusuasenha();
        break;                 
+    case 'trocarsenha':
+           trocarsenha();
+       break;
 
 }
 
@@ -102,9 +105,7 @@ function esqueceusuasenha() {
 	} else {
             $usuario = new Usuario();
             $usuario_obj = $usuario->getUsuarioByEmail(validInputData($_POST["email"]));            
-            
             $template = "show_message";
-
             if ($usuario_obj == False) {
                 $args['message'] = "Usuário não encontrado.";	
             } else {
@@ -112,9 +113,9 @@ function esqueceusuasenha() {
                 $token->setUsuario($usuario_obj);
                 $hash_token = md5(uniqid(rand(), true));
                 $token->setToken($hash_token);
-
-                $result = $token->add();
                 
+                $result = $token->add();
+
                 if ($result) {                    
                         $token->envia_email_token();
                         $args['message'] = "Acesse sua caixa de email para instruções para alterar sua senha.";	
@@ -122,6 +123,50 @@ function esqueceusuasenha() {
                         $args['message'] = "Houve uma falha no procedimento de recuperação de senha.";	
                 }                
 
+            }
+            render($args, $template);
+	}
+}
+
+
+function trocarsenha() {
+	if (!$_POST) {
+            if (isset($_GET["id"])) {
+                $args = Null;
+		$token = new Token();
+		$token_obj = $token->getTokenByToken(validInputData($_GET["id"]));
+                
+                if ($token_obj == False) {
+                    $template = "show_message";
+                    $args['message'] = "Token inválido.";
+                } else {  
+                    $args['token'] = validInputData($_GET["id"]);
+                    $template = "comum_" . "trocarsenha";
+                }  
+                render($args, $template);
+            }
+	} else {
+            $template = "show_message";
+            $args = Null;
+            if (isset($_POST["token"])) {
+		$token = new Token();
+		$token_obj = $token->getTokenByToken(validInputData($_POST["token"]));
+                if ($token_obj == False) {
+                    $args['message'] = "Token inválido.";
+                } else {
+                    $usuario = $token_obj->getUsuario();
+                    $usuario->setSenha(md5($_POST["senha"]));
+                    
+                    $result = $usuario->edit_senha();
+                    if ($result) {
+                            $args['message'] = "Senha alterada com sucesso! <br />";	
+                            $args['message'] .= 'Você pode acessar sua conta agora: <a href="' . BASE_URL . MODULE_LOGIN . '/' . PAGE_LOGIN . '">' . BASE_URL . MODULE_LOGIN . "/" . PAGE_LOGIN .'</a>';
+                    } else {
+                            $args['message'] = "Falha na definição de senha.";	
+                    }                    
+                }                  
+            } else {
+                $args['message'] = "Falha na definição de senha.";	
             }
             render($args, $template);
 	}

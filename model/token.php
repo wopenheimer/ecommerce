@@ -59,7 +59,7 @@ class Token
     public function getTokenByToken($token) {                        
         $v_token = $this->token_dao->getTokenByToken($token);
         
-        if (is_object($v_usuario)){
+        if (is_object($v_token)){
             $token = new Token();
             $token->setId($v_token->id);
             $token->setData($v_token->data);

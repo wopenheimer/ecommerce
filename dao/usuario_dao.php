@@ -96,7 +96,18 @@ class UsuarioDao extends Dao {
 
         $result = $this->executaQuery($sql, $param);
         return $result;        
-    }        
+    }
+    
+
+    public function edit_senha($usuario) {
+        $sql = 'update usuario set senha = $1 ';
+        $sql .= 'where id = $2;';
+        $param = array();
+        array_push($param, $usuario->getSenha(), $usuario->getId());
+
+        $result = $this->executaQuery($sql, $param);
+        return $result;        
+    }    
 
 
     public function remove($usuario) {

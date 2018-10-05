@@ -12,7 +12,8 @@ define("ADM_PERFIL", "1");
 
 const PUBLIC_PAGES = array('login' => array('controller' => 'comum'), 
                            'novousuario' => array('controller' => 'comum'),
-						   'esqueceusuasenha' => array('controller' => 'comum'),                           
+                           'esqueceusuasenha' => array('controller' => 'comum'),                           
+                           'trocarsenha' => array('controller' => 'comum'),                               
                            'get_cidades_by_estado' => array('controller' => 'pessoa'),
                            'ativarusuario' => array('controller' => 'comum')
 			  );

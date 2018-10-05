@@ -187,6 +187,11 @@ class Usuario
         $result = $this->usuario_dao->edit($this);        
         return $result;
 	}	        
+        
+	public function edit_senha() {                        
+        $result = $this->usuario_dao->edit_senha($this);        
+        return $result;
+	}	                
 
 
 	public function remove() {                        
