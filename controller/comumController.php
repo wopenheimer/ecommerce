@@ -1,6 +1,7 @@
 <?php
 include_once("model/usuario.php");
 include_once("model/cidade.php");
+include_once("model/token.php");
 include_once("utils/utils.php");
 include_once("dao/dao.php");
 
@@ -101,22 +102,28 @@ function esqueceusuasenha() {
 	} else {
             $usuario = new Usuario();
             $usuario_obj = $usuario->getUsuarioByEmail(validInputData($_POST["email"]));            
+            
+            $template = "show_message";
 
             if ($usuario_obj == False) {
                 $args['message'] = "Usuário não encontrado.";	
             } else {
-//                $result = $usuario_obj->ativarUsuario();
-//                if ($result) {
-//                    $args['message'] = "O Usuário com respectivo email " . $usuario_obj->getEmail() . " foi validado. <br />";	
-//                    $args['message'] .= 'Você pode acessar sua conta agora: <a href="' . BASE_URL . MODULE_LOGIN . '/' . PAGE_LOGIN . '">' . BASE_URL . MODULE_LOGIN . "/" . PAGE_LOGIN .'</a>';
-//                } else {
-//                    $args['message'] = "Houve um erro na ativação do usuário.";	
-//                }
+                $token = new Token();
+                $token->setUsuario($usuario_obj);
+                $hash_token = md5(uniqid(rand(), true));
+                $token->setToken($hash_token);
+
+                $result = $token->add();
+                
+                if ($result) {                    
+                        $token->envia_email_token();
+                        $args['message'] = "Acesse sua caixa de email para instruções para alterar sua senha.";	
+                } else {
+                        $args['message'] = "Houve uma falha no procedimento de recuperação de senha.";	
+                }                
+
             }
-
-            $template = "show_message";
-
-            render($args, $template);            
+            render($args, $template);
 	}
 }
 

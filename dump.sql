@@ -225,6 +225,43 @@ CREATE TABLE public.pessoa (
 ALTER TABLE public.pessoa OWNER TO postgres;
 
 --
+-- Name: token; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.token (
+    id integer NOT NULL,
+    usuario_id integer NOT NULL,
+    data timestamp without time zone NOT NULL,
+    validade timestamp without time zone NOT NULL,
+    token character varying(300) NOT NULL
+);
+
+
+ALTER TABLE public.token OWNER TO postgres;
+
+--
+-- Name: token_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.token_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.token_id_seq OWNER TO postgres;
+
+--
+-- Name: token_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.token_id_seq OWNED BY public.token.id;
+
+
+--
 -- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -288,6 +325,13 @@ ALTER TABLE ONLY public.estado ALTER COLUMN id SET DEFAULT nextval('public.estad
 --
 
 ALTER TABLE ONLY public.perfil ALTER COLUMN id SET DEFAULT nextval('public.perfil_id_seq'::regclass);
+
+
+--
+-- Name: token id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token ALTER COLUMN id SET DEFAULT nextval('public.token_id_seq'::regclass);
 
 
 --
@@ -5944,7 +5988,15 @@ COPY public.pessoa (cpf, nome, datanasc, celular, cep, cidade_id, foto) FROM std
 07437690667	Wellington Openheimer Ribeiro	1986-10-27	(35)988689949	37.550000	3152501	\N
 23833823615	Silvio Torquato Ribeiro	1955-02-14	\N	\N	3152501	\N
 123456	Abigail Ribeiro	1964-11-24		5345543	4305108	\N
-123	Júlia Marinho	\N	\N	\N	3152501	\N
+123789	Wellington Ribeiro	\N	\N	\N	3152501	\N
+\.
+
+
+--
+-- Data for Name: token; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.token (id, usuario_id, data, validade, token) FROM stdin;
 \.
 
 
@@ -5956,7 +6008,7 @@ COPY public.usuario (id, email, senha, pessoa_cpf, perfil_id, ativo, hash_valida
 9	silvio@gmail.com	202cb962ac59075b964b07152d234b70	23833823615	2	t	\N
 8	wopenheimer@gmail.com	7b7a38b5937d62b9103540549e1b9f45	07437690667	1	t	\N
 15	abigail@gmail.com	202cb962ac59075b964b07152d234b70	123456	2	t	\N
-26	wellington.ribeiro@ifsuldeminas.edu.br	202cb962ac59075b964b07152d234b70	123	2	t	2dd5869357536e35d3f0fcc869c09e1e
+29	wellington.ribeiro@ifsuldeminas.edu.br	e10adc3949ba59abbe56e057f20f883e	123789	2	t	cf89b8fb6ffadb7aaa77cea931754351
 \.
 
 
@@ -5989,10 +6041,17 @@ SELECT pg_catalog.setval('public.perfil_id_seq', 2, true);
 
 
 --
+-- Name: token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.token_id_seq', 3, true);
+
+
+--
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 26, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 29, true);
 
 
 --
@@ -6049,6 +6108,22 @@ ALTER TABLE ONLY public.anuncio_file
 
 ALTER TABLE ONLY public.pessoa
     ADD CONSTRAINT pk_paciente PRIMARY KEY (cpf);
+
+
+--
+-- Name: token token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token
+    ADD CONSTRAINT token_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: token token_token_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token
+    ADD CONSTRAINT token_token_key UNIQUE (token);
 
 
 --
@@ -6136,6 +6211,14 @@ ALTER TABLE ONLY public.pessoa
 
 ALTER TABLE ONLY public.anuncio_file
     ADD CONSTRAINT fk_anuncio_file1 FOREIGN KEY (anuncio_id) REFERENCES public.anuncio(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: token token_usuario_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token
+    ADD CONSTRAINT token_usuario_id_fkey FOREIGN KEY (usuario_id) REFERENCES public.usuario(id) ON UPDATE CASCADE;
 
 
 --
