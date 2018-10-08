@@ -32,7 +32,8 @@
         <span class="glyphicon glyphicon-wrench"></span>
           <?= $_SESSION["username"] ?>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">  
+          <a class="dropdown-item" href="<?= BASE_URL ?>anuncio/home">Meus Anúncios</a> <br />
           <a class="dropdown-item" href="<?= BASE_URL ?>comum/logout">Sair</a>
         </div>
       </li>      

@@ -21,31 +21,37 @@
             value="<?=$args['anuncio']->getPreco()?>" required>
     </div>
 
-    <div class="form-group">
-        <label for="pessoa">Anunciante</label>
-        <select id="anunciante" name="anunciante" class="form-control selectpicker" data-live-search="true" required>
-          <?php        
-          foreach ($args['pessoas'] as $pessoa) {
-            ?>
-            <option 
-                value="<?= $pessoa->getCpf() ?>" 
-                data-tokens="<?= $pessoa->getNome()?>"
-                <?php 
-                   if ($args['anuncio']->getAnunciante()->getCpf() == $pessoa->getCpf()) { 
-                        print ' selected ';
-                    }    
-                     ?>
-                >
-                    <?= $pessoa->getNome() ?>                        
-            </option>
-            <?php
-          }
-          ?>        
+    <?php
+    if (is_adm_user()) {
+    ?>
+      
+        <div class="form-group">
+            <label for="pessoa">Anunciante</label>
+            <select id="anunciante" name="anunciante" class="form-control selectpicker" data-live-search="true" required>
+              <?php        
+              foreach ($args['pessoas'] as $pessoa) {
+                ?>
+                <option 
+                    value="<?= $pessoa->getCpf() ?>" 
+                    data-tokens="<?= $pessoa->getNome()?>"
+                    <?php 
+                       if ($args['anuncio']->getAnunciante()->getCpf() == $pessoa->getCpf()) { 
+                            print ' selected ';
+                        }    
+                         ?>
+                    >
+                        <?= $pessoa->getNome() ?>                        
+                </option>
+                <?php
+              }
+              ?>        
 
-        </select>
+            </select>
 
-    </div>
-
+        </div>
+    <?php
+    }
+    ?>    
     <button type="submit" class="btn btn-primary">Enviar</button>
 
 </form> 

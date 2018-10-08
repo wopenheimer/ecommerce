@@ -52,7 +52,13 @@ function view() {
 
 function home() {
    $anuncio = new Anuncio();
-   $anuncios = $anuncio->getAnuncios();
+   $anuncios = Null;
+   if (is_adm_user()) {
+       $anuncios = $anuncio->getAnuncios();
+   } else {
+       $anuncios = $anuncio->getAnunciosByAnunciante($_SESSION["usercpf"]);
+   }   
+   
    $template = "anuncio_" . "home";
    render($anuncios, $template);	
 }
@@ -71,7 +77,12 @@ function add(){
         $anuncio->setTitulo(validInputData($_POST["titulo"]));
         $anuncio->setDescricao(validInputData($_POST["descricao"]));
         $anuncio->setPreco(validInputData($_POST["preco"]));
-        $anuncio->setAnunciante(validInputData($_POST["anunciante"]));
+        
+        if (is_adm_user()) {
+            $anuncio->setAnunciante(validInputData($_POST["anunciante"]));
+        } else {
+            $anuncio->setAnunciante($_SESSION["usercpf"]);
+        }
 
 		$result = $anuncio->add();
 		$template = "show_message";
@@ -104,7 +115,11 @@ function edit(){
         $anuncio->setTitulo(validInputData($_POST["titulo"]));
         $anuncio->setDescricao(validInputData($_POST["descricao"]));
         $anuncio->setPreco(validInputData($_POST["preco"]));
-        $anuncio->setAnunciante(validInputData($_POST["anunciante"]));
+        if (is_adm_user()) {
+            $anuncio->setAnunciante(validInputData($_POST["anunciante"]));
+        } else {
+            $anuncio->setAnunciante($_SESSION["usercpf"]);
+        }
 
 		$result = $anuncio->edit();
 		$template = "show_message";

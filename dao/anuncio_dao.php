@@ -18,7 +18,24 @@ class AnuncioDao extends Dao {
         $result = $this->executaQuery($sql, $param);
         return $this->getFetchAll($result);        
     }
-    
+
+    public function getAnunciosByAnunciante($anunciante_cpf) {
+        $sql = "select *, 
+                to_char(A.datacriacao, 'dd/mm/yyyy HH24:MI') as datacriacao, 
+                to_char(A.ultimaalteracao, 'dd/mm/yyyy HH24:MI') as ultimaalteracao 
+                from anuncio A
+                left join 
+                    (
+                    select distinct on(anuncio_id) * from anuncio_file
+                    ) AF on AF.anuncio_id = A.id
+                where
+                A.anunciante_cpf = $1
+                order by A.ultimaalteracao desc;";
+        $param = array();
+        array_push($param, $anunciante_cpf);
+        $result = $this->executaQuery($sql, $param);
+        return $this->getFetchAll($result);        
+    }    
 
     public function getAnuncioById($id) {
         $sql = "select *,
