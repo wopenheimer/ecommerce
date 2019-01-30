@@ -27,15 +27,25 @@
       <?php
       }
       ?>      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-wrench"></span>
-          <?= $_SESSION["username"] ?>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">  
-          <a class="dropdown-item" href="<?= BASE_URL ?>anuncio/home">Meus Anúncios</a> <br />
-          <a class="dropdown-item" href="<?= BASE_URL ?>comum/logout">Sair</a>
-        </div>
-      </li>      
+      <?php
+      if (check_session_active()) {
+      ?>      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="glyphicon glyphicon-wrench"></span>
+            <?= $_SESSION["username"] ?>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">  
+            <a class="dropdown-item" href="<?= BASE_URL ?>anuncio/home">Meus Anúncios</a> <br />
+            <a class="dropdown-item" href="<?= BASE_URL ?>comum/logout">Sair</a>
+          </div>
+        </li>      
+      <?php
+      } else {
+      ?>
+      <li><a href="<?= BASE_URL ?>comum/login"><span class="glyphicon glyphicon-hand-up"></span> Entrar</a></li>
+      <?php
+      }
+      ?>        
   </ul>
 </div>  

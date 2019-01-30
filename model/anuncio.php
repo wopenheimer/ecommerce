@@ -27,6 +27,7 @@ class Anuncio
         $publicControllers[] = "home";
         $publicControllers[] = "add";
         $publicControllers[] = "edit";
+        $publicControllers[] = "remove";
     	return $publicControllers;
     }
 

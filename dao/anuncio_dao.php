@@ -83,7 +83,7 @@ class AnuncioDao extends Dao {
 
 
     public function remove($anuncio) {  
-        $sql = 'delete from anuncio where id = $1 cascade;';
+        $sql = 'delete from anuncio where id = $1;';
         $param = array();
         array_push($param, $anuncio->getId());
 

@@ -42,6 +42,9 @@ function index() {
                     break;
                   }
                 }                
+            } else {
+                $module = MODULE_HOME;
+                $page = PAGE_HOME;                        
             }    
             $_REQUEST["page"] = $page;
             include("controller/" . $module ."Controller.php");              
@@ -90,8 +93,12 @@ function create_session_user($usuario) {
 
 
 function is_adm_user() {
-    if ($_SESSION["userperfil"] == ADM_PERFIL) {
-        return true;
+    if (isset($_SESSION["userperfil"])) {
+        if ($_SESSION["userperfil"] == ADM_PERFIL) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
