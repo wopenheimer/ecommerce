@@ -15,6 +15,8 @@ const PUBLIC_PAGES = array('login' => array('controller' => 'comum'),
                            'esqueceusuasenha' => array('controller' => 'comum'),                           
                            'trocarsenha' => array('controller' => 'comum'),                               
                            'get_cidades_by_estado' => array('controller' => 'pessoa'),
+                           'feed' => array('controller' => 'anuncio'),
+                           'view' => array('controller' => 'anuncio'),
                            'ativarusuario' => array('controller' => 'comum')
 			  );
 
@@ -31,7 +33,7 @@ define("DB_NAME", "ecommerce");
 define("EMAIL_HOST", "smtp.gmail.com");
 define("EMAIL_PORT", "587");
 define("EMAIL_USERNAME", "wopenheimer@gmail.com");
-define("EMAIL_PASSWORD", "acsd64dwsa2775");
+define("EMAIL_PASSWORD", "");
 define("EMAIL_FROM", "wopenheimer@gmail.com");
 
 
