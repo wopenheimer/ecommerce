@@ -1,5 +1,5 @@
 <?php
-    session_start();
-	header('Content-Type: image/jpeg');
-    readfile($_SESSION["UPLOAD_FOLDER"] . $_GET["img"]);
+    include_once("properties.php");
+    header('Content-Type: image/jpeg');
+    readfile(UPLOAD_FOLDER . $_GET["img"]);
 ?>

@@ -86,7 +86,6 @@ function create_session_user($usuario) {
         $_SESSION["useremail"] = $usuario->getEmail();
         $_SESSION["usercpf"] = $usuario->getPessoa()->getCpf();
         $_SESSION["userperfil"] = $usuario->getPerfil()->getId();
-        $_SESSION["UPLOAD_FOLDER"] = UPLOAD_FOLDER;
 
     } 
 }

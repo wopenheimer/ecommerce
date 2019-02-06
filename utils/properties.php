@@ -20,7 +20,7 @@ const PUBLIC_PAGES = array('login' => array('controller' => 'comum'),
                            'ativarusuario' => array('controller' => 'comum')
 			  );
 
-define("UPLOAD_FOLDER", "/home/wellington/img_ecommerce/");
+define("UPLOAD_FOLDER", "/home/projetos/img_ecommerce/");
 define("NO_IMAGE_FILE", "no_image.jpg");
 
 
