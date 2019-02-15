@@ -28,17 +28,26 @@ if (!is_adm_user() && !in_array($_REQUEST["page"], Anuncio::getPublicControllers
 		case 'remove':
 			remove();
 			break;	
-		default:
-			# code...
-			break;
+		case 'imagens':
+			imagens();
+			break;	
+
+                default:
+                    # code...
+                    break;
 	}
 }
 
 function feed() {
-   $anuncio = new Anuncio();
-   $anuncios = $anuncio->getAnuncios();
-   $template = "anuncio_" . "feed";
-   render($anuncios, $template);	
+    $anuncio = new Anuncio();
+    $template = "anuncio_" . "feed";
+
+    if (!$_POST) {
+        $anuncios = $anuncio->getAnuncios();
+    } else {	
+        $anuncios = $anuncio->getAnunciosByQuery(validInputData($_POST["q"]));
+    }    
+    render($anuncios, $template);	
 }
 
 function view() {
@@ -52,6 +61,24 @@ function view() {
 
 function home() {
    $anuncio = new Anuncio();
+   $anuncios = Null;
+   if (is_adm_user()) {
+       $anuncios = $anuncio->getAnuncios();
+   } else {
+       $anuncios = $anuncio->getAnunciosByAnunciante($_SESSION["usercpf"]);
+   }   
+   
+   $template = "anuncio_" . "home";
+   render($anuncios, $template);	
+}
+
+function imagens() {
+   $anuncio = new Anuncio();
+   
+   if ($anuncio->isAnuncioUsuario(validInputData($_GET["id"]), $_SESSION["usercpf"]) == False) {
+       
+   }
+   
    $anuncios = Null;
    if (is_adm_user()) {
        $anuncios = $anuncio->getAnuncios();

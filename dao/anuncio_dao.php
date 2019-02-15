@@ -36,7 +36,63 @@ class AnuncioDao extends Dao {
         $result = $this->executaQuery($sql, $param);
         return $this->getFetchAll($result);        
     }    
+    
+    public function isAnuncioUsuario($anuncio_id, $anunciante_cpf) {
+        $sql = "select exists
+                (
+                select *
+                from anuncio A
+                where
+                A.id = $1 and
+                A.anunciante_cpf = $2
+                );";
+        $param = array();
+        array_push($param, $anuncio_id);
+        array_push($param, $anunciante_cpf);
+        $result = $this->executaQuery($sql, $param);
+        return $this->getFetchObject($result);
+    }
+    
 
+    public function getAnunciosByQuery($query) {
+        $query = explode(" ", $query);
+        $param = array();
+        
+        $sql = "select A.*, AF.*, 
+                to_char(A.datacriacao, 'dd/mm/yyyy HH24:MI') as datacriacao, 
+                to_char(A.ultimaalteracao, 'dd/mm/yyyy HH24:MI') as ultimaalteracao 
+                from anuncio A
+                inner join pessoa P on P.cpf = A.anunciante_cpf
+                inner join cidade C on C.id = P.cidade_id
+                left join 
+                    (
+                    select distinct on(anuncio_id) * from anuncio_file
+                    ) AF on AF.anuncio_id = A.id
+                where ";
+        for ($i = 0; $i < count($query); $i++) {
+            $q = $query[$i];
+            $var1 = ($i * 4) + 1;
+            $var2 = $var1 + 1;
+            $var3 = $var2 + 1;
+            $var4 = $var3 + 1;
+            
+            if ($i > 0) {
+                $sql .= " or ";
+            }
+            $sql .= " A.titulo ilike $$var1 or ";
+            $sql .= " A.descricao ilike $$var2 or";
+            $sql .= " P.nome ilike $$var3 or";
+            $sql .= " C.nome ilike $$var4 ";
+            array_push($param, "%".$q."%");
+            array_push($param, "%".$q."%");
+            array_push($param, "%".$q."%");
+            array_push($param, "%".$q."%");
+        }        
+        $sql .=" order by A.ultimaalteracao desc;";
+        $result = $this->executaQuery($sql, $param);
+        return $this->getFetchAll($result);        
+    }    
+    
     public function getAnuncioById($id) {
         $sql = "select *,
                 to_char(A.datacriacao, 'dd/mm/yyyy HH24:MI') as datacriacao, 

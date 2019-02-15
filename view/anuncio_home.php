@@ -26,6 +26,9 @@ print '
 			<td>' .$anuncio->getDataCriacao() .'</td>
 			<td>' .$anuncio->getUltimaAlteracao() .'</td>
 			<td>
+			<a href="' . BASE_URL. 'anuncio/imagens/' .$anuncio->getId() .'" title="Fotos do Anúncio" class="btn btn-default" role="button">
+				<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+			</a>
 			<a href="' . BASE_URL. 'anuncio/edit/' .$anuncio->getId() .'" class="btn btn-default" role="button">
 				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 			</a>

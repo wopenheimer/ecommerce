@@ -7,6 +7,16 @@ print '<h3>Anúncios</h3>';
 
 ?>
 
+<form action="<?= BASE_URL ?>anuncio/feed" method="POST">
+  <div class="input-group">
+   <input type="text" class="form-control" name="q" id="q" placeholder="Buscar" required autofocus="" />
+   <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Buscar</button>
+   </span>
+</div>
+</form>
+
+
 <div class="paragraphs">
 <?php
 	for($i = 0; $i < sizeof($anuncios); $i++){

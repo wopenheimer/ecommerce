@@ -28,6 +28,7 @@ class Anuncio
         $publicControllers[] = "add";
         $publicControllers[] = "edit";
         $publicControllers[] = "remove";
+        $publicControllers[] = "imagens";
     	return $publicControllers;
     }
 
@@ -169,6 +170,35 @@ class Anuncio
         return $array_anuncios;
 	}	        
 
+
+	public function getAnunciosByQuery($query) {            
+            
+        $anuncios = $this->anuncio_dao->getAnunciosByQuery($query);
+
+        $array_anuncios = [];        
+        if ($anuncios){
+	        foreach ($anuncios as $v_anuncio) {
+	            $anuncio = new Anuncio();
+	            $anuncio->setId($v_anuncio["id"]);
+	            $anuncio->setTitulo($v_anuncio["titulo"]);
+	            $anuncio->setDescricao($v_anuncio["descricao"]);
+	            $anuncio->setPreco($v_anuncio["preco"]);
+	            $anuncio->setDataCriacao($v_anuncio["datacriacao"]);
+	            $anuncio->setUltimaAlteracao($v_anuncio["ultimaalteracao"]);
+	            $anuncio->setMainFile($v_anuncio["file"]);
+
+	            $pessoa = new Pessoa();
+	            $pessoa_obj = $pessoa->getPessoaByCpf($v_anuncio["anunciante_cpf"]);
+
+	            $anuncio->setAnunciante($pessoa_obj);
+	            $array_anuncios[] = $anuncio;
+	        }
+    	}
+        
+        return $array_anuncios;
+	}	        
+
+        
 	public function getAnuncioById($id) {                        
         $v_anuncio = $this->anuncio_dao->getAnuncioById($id);
 
@@ -186,7 +216,12 @@ class Anuncio
         $anuncio->setAnunciante($pessoa_obj);
 
         return $anuncio;
-	}		
+	}
+        
+        public function isAnuncioUsuario($anuncio_id, $anunciante_cpf) {
+            $v_anuncio = $this->anuncio_dao->isAnuncioUsuario($anuncio_id, $anunciante_cpf);
+            return $v_anuncio->exists;
+        }
         
 
 	public function add() {                        
