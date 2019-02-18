@@ -15,14 +15,14 @@ print '<h3>Anúncios</h3>';
    </span>
 </div>
 </form>
-
+<br />
 
 <div class="paragraphs">
 <?php
 	for($i = 0; $i < sizeof($anuncios); $i++){
 		$anuncio = $anuncios[$i];
 		?>
-  	    <div class="row">
+  	    <div class="row container-fluid">
 	      <div class="span4">
 	        <div class="clearfix content-heading">
 	        	<?php
